@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace LogicSim
 {
@@ -43,11 +44,34 @@ namespace LogicSim
 
         public abstract void Compute();
 
+        /// <summary>
+        /// Initializes component
+        /// </summary>
+        /// <param name="inputs">Inputs for component</param>
+        /// <param name="outputs">Outputs for component</param>
+        /// <param name="index">Index of component, required for multithreading</param>
         protected Component(Input[] inputs, Output[] outputs, int index)
         {
             Inputs = inputs;
             Outputs = outputs;
             Index = index;
+        }
+
+        /// <summary>
+        /// Initializes component based on provided links and creates data correlations between links and component
+        /// </summary>
+        /// <param name="inputs">Inputs for component as links</param>
+        /// <param name="outputs">Outputs for component as links</param>
+        /// <param name="index">Index of component, required for multithreading</param>
+        protected Component(Link[] inputs, Link[] outputs, int index)
+        {
+            Inputs = inputs.Select(x => new Input(this, x)).ToArray();
+            Outputs = outputs.Select(x => new Output(this, x)).ToArray();
+
+            foreach(Input i in Inputs)
+                i.Link.Inputs = i.Link.Inputs.Append(i).ToArray();
+            foreach (Output o in Outputs)
+                o.Link.Outputs = o.Link.Outputs.Append(o).ToArray();
         }
     }
 }

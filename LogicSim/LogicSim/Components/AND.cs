@@ -15,5 +15,6 @@ namespace LogicSim.Components
         }
 
         public AND(Input[] inputs, Output[] outputs, int index) : base(inputs, outputs, index) { }
+        public AND(Link[] inputs, Link[] outputs, int index) : base(inputs, outputs, index) { }
     }
 }

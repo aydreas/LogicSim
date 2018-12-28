@@ -8,6 +8,16 @@ namespace LogicSim
 {
     static class Board
     {
+        public enum State
+        {
+            Uninitialized = 0,
+            Initialized = 1,
+            Paused = 2,
+            Running = 3
+        }
+
+        public static State CurrentState { get; private set; }
+
         public static int THREADNUM { get; private set; }
         public static bool SYNCHRONIZEDEXECUTION { get; private set; }
 
@@ -19,10 +29,15 @@ namespace LogicSim
         public static bool[] ReadBuffer;
         public static bool[] WriteBuffer;
 
-        private static Thread[] Threads = new Thread[THREADNUM];
+        private static Thread[] WorkerThreads = new Thread[THREADNUM];
 
         private static Barrier WorkerBarrier = new Barrier(THREADNUM, (a) =>
         {
+            while(CurrentState == State.Paused)
+            {
+                Thread.Sleep(1000);
+            }
+
             bool[] readBuffer = ReadBuffer;
             ReadBuffer = WriteBuffer;
             WriteBuffer = readBuffer;
@@ -40,8 +55,8 @@ namespace LogicSim
 
         public static void Init(Component[] components)
         {
-            if (Threads != null)
-                throw new NotImplementedException();
+            if (CurrentState != State.Uninitialized)
+                throw new InvalidOperationException("Board can only be initialized once!");
 
             THREADNUM = 1;
             SYNCHRONIZEDEXECUTION = false;
@@ -68,9 +83,54 @@ namespace LogicSim
 
             ReadBuffer = Buffer1;
             WriteBuffer = Buffer2;
+
+            for(int i = 0; i < THREADNUM; i++)
+            {
+                WorkerThreads[i] = new Thread(() => Worker(i));
+            }
+
+            CurrentState = State.Initialized;
         }
 
-        public static void Worker(int index)
+        public static void Start()
+        {
+            switch (CurrentState)
+            {
+                case State.Uninitialized:
+                    throw new InvalidOperationException("Board not initialized!");
+                case State.Paused:
+                    CurrentState = State.Running;
+                    break;
+                case State.Running:
+                    throw new InvalidOperationException("Simulation is already running!");
+                case State.Initialized:
+                    foreach (Thread t in WorkerThreads)
+                        t.Start();
+                    break;
+                default:
+                    throw new InvalidOperationException("Board is not in correct state!");
+            }
+        }
+
+        public static void Pause()
+        {
+            switch (CurrentState)
+            {
+                case State.Uninitialized:
+                    throw new InvalidOperationException("Board not initialized!");
+                case State.Paused:
+                    throw new InvalidOperationException("Board already paused!");
+                case State.Initialized:
+                    throw new InvalidOperationException("Simulation is not running!");
+                case State.Running:
+                    CurrentState = State.Paused;
+                    break;
+                default:
+                    throw new InvalidOperationException("Board is not in correct state!");
+            }
+        }
+
+        private static void Worker(int index)
         {
             while (true)
             {

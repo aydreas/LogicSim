@@ -24,7 +24,7 @@ namespace LogicSim
             {
                 return _Outputs;
             }
-            private set
+            set
             {
                 _Outputs = value ?? throw new ArgumentNullException("Outputs");
             }
@@ -36,7 +36,7 @@ namespace LogicSim
             {
                 return _Inputs;
             }
-            private set
+            set
             {
                 _Inputs = value ?? throw new ArgumentNullException("Inputs");
             }
