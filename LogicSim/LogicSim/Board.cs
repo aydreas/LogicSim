@@ -29,29 +29,13 @@ namespace LogicSim
         public static bool[] ReadBuffer;
         public static bool[] WriteBuffer;
 
-        private static Thread[] WorkerThreads = new Thread[THREADNUM];
+        private static Thread[] WorkerThreads;
 
-        private static Barrier WorkerBarrier = new Barrier(THREADNUM, (a) =>
-        {
-            while(CurrentState == State.Paused)
-            {
-                Thread.Sleep(1000);
-            }
+        private static Barrier WorkerBarrier;
 
-            bool[] readBuffer = ReadBuffer;
-            ReadBuffer = WriteBuffer;
-            WriteBuffer = readBuffer;
-            for (int i = 0; i < WriteBuffer.Length; i++)
-            {
-                WriteBuffer[i] = false;
-            }
-
-            if(SYNCHRONIZEDEXECUTION)
-            {
-                //TODO: wait for next tick confirmation from network
-                Thread.Sleep(1000);
-            }
-        });
+        private static System.Timers.Timer BenchmarkTimer = new System.Timers.Timer(); 
+        private static long BenchmarkCounter = 0;
+        public static float CurrentSpeed { get; private set; }
 
         public static void Init(Component[] components)
         {
@@ -84,10 +68,32 @@ namespace LogicSim
             ReadBuffer = Buffer1;
             WriteBuffer = Buffer2;
 
-            for(int i = 0; i < THREADNUM; i++)
+            WorkerBarrier = new Barrier(THREADNUM, (a) =>
             {
+                while (CurrentState == State.Paused)
+                    Thread.Sleep(1000);
+
+                bool[] readBuffer = ReadBuffer;
+                ReadBuffer = WriteBuffer;
+                WriteBuffer = readBuffer;
+                for (int i = 0; i < WriteBuffer.Length; i++)
+                    WriteBuffer[i] = false;
+
+                if (SYNCHRONIZEDEXECUTION)
+                {
+                    //TODO: wait for next tick confirmation from network
+                    Thread.Sleep(1000);
+                }
+                BenchmarkCounter++;
+            });
+
+            BenchmarkTimer.Interval = 1000;
+            BenchmarkTimer.Elapsed += OnBenchmarkTimer;
+            BenchmarkTimer.Enabled = true;
+
+            WorkerThreads = new Thread[THREADNUM];
+            for (int i = 0; i < THREADNUM; i++)
                 WorkerThreads[i] = new Thread(() => Worker(i));
-            }
 
             CurrentState = State.Initialized;
         }
@@ -106,6 +112,7 @@ namespace LogicSim
                 case State.Initialized:
                     foreach (Thread t in WorkerThreads)
                         t.Start();
+                    CurrentState = State.Running;
                     break;
                 default:
                     throw new InvalidOperationException("Board is not in correct state!");
@@ -128,6 +135,21 @@ namespace LogicSim
                 default:
                     throw new InvalidOperationException("Board is not in correct state!");
             }
+        }
+
+        private static void OnBenchmarkTimer(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            if (CurrentState != State.Running)
+                return;
+
+            long counter = BenchmarkCounter;
+            BenchmarkCounter = 0;
+            string[] SI = new string[] { "", "k", "M", "G", "T" };
+            int exponent = 0;
+            while(counter / Math.Pow(10, exponent) > 1000)
+                exponent += 3;
+
+            Console.WriteLine((counter / Math.Pow(10, exponent)) + " " + (exponent <= 12 ? SI[exponent / 3] : "10^" + exponent) + "Hz");
         }
 
         private static void Worker(int index)

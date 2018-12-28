@@ -33,7 +33,7 @@ namespace LogicSim
             }
             private set
             {
-                if ((value ?? throw new ArgumentNullException("Outputs")).Length != InputCount)
+                if ((value ?? throw new ArgumentNullException("Outputs")).Length != OutputCount)
                     throw new ArgumentException("Array must be of same length as OutputCount");
                 _Outputs = value;
             }
