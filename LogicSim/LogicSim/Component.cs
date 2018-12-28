@@ -8,6 +8,7 @@ namespace LogicSim
     {
         private Input[] _Inputs;
         private Output[] _Outputs;
+        public readonly int Index;
 
         public Input[] Inputs
         {
@@ -42,10 +43,11 @@ namespace LogicSim
 
         public abstract void Compute();
 
-        protected Component(Input[] inputs, Output[] outputs)
+        protected Component(Input[] inputs, Output[] outputs, int index)
         {
             Inputs = inputs;
             Outputs = outputs;
+            Index = index;
         }
     }
 }

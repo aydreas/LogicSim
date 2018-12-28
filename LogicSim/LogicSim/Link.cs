@@ -7,35 +7,61 @@ namespace LogicSim
 {
     class Link
     {
-        private IConnection[] _Connections;
+        private Output[] _Outputs;
+        private Input[] _Inputs;
+
         public bool Powered
         {
             get
             {
-                return Connections.Any(x => x.Powered);
+                return Outputs.Any(x => x.Powered);
             }
         }
 
-        public IConnection[] Connections
+        public Output[] Outputs
         {
             get
             {
-                return _Connections;
+                return _Outputs;
             }
             private set
             {
-                _Connections = value ?? throw new ArgumentNullException("Connections must not be null!");
+                _Outputs = value ?? throw new ArgumentNullException("Outputs");
+            }
+        }
+
+        public Input[] Inputs
+        {
+            get
+            {
+                return _Inputs;
+            }
+            private set
+            {
+                _Inputs = value ?? throw new ArgumentNullException("Inputs");
             }
         }
 
         public Link()
         {
-            Connections = new IConnection[0];
+            Outputs = new Output[0];
+            Inputs = new Input[0];
         }
 
-        public Link(IConnection[] connections)
+        public Link(Output[] outputs)
         {
-            Connections = connections;
+            Outputs = outputs;
+        }
+
+        public Link(Input[] inputs)
+        {
+            Inputs = inputs;
+        }
+
+        public Link(Output[] outputs, Input[] inputs)
+        {
+            Outputs = outputs;
+            Inputs = inputs;
         }
     }
 }

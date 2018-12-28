@@ -14,6 +14,6 @@ namespace LogicSim.Components
             Outputs[0].Powered = Inputs[0].Powered && Inputs[1].Powered;
         }
 
-        public AND(Input[] inputs, Output[] outputs) : base(inputs, outputs) { }
+        public AND(Input[] inputs, Output[] outputs, int index) : base(inputs, outputs, index) { }
     }
 }
