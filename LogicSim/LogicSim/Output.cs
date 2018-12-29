@@ -8,22 +8,23 @@ namespace LogicSim
     {
         private Component _Component;
         private Link _Link;
+        private bool _Powered;
 
         public bool Powered {
             get
             {
-                return Powered;
+                return _Powered;
             }
             set
             {
-                if (Powered != value)
+                if (_Powered != value)
                 {
                     foreach(Input input in Link.Inputs)
                     {
                         Board.WriteBuffer[input.Component.Index] = true;
                     }
 
-                    Powered = value;
+                    _Powered = value;
                 }
             }
         }

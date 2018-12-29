@@ -25,15 +25,15 @@ namespace LogicSim
 
         private static bool[] Buffer1;
         private static bool[] Buffer2;
-
         public static bool[] ReadBuffer;
         public static bool[] WriteBuffer;
 
         private static Thread[] WorkerThreads;
-
         private static Barrier WorkerBarrier;
 
-        private static System.Timers.Timer BenchmarkTimer = new System.Timers.Timer(); 
+        public static event EventHandler TickEvent;
+
+        private static System.Timers.Timer BenchmarkTimer = new System.Timers.Timer();
         private static long BenchmarkCounter = 0;
         public static float CurrentSpeed { get; private set; }
 
@@ -72,6 +72,13 @@ namespace LogicSim
             {
                 while (CurrentState == State.Paused)
                     Thread.Sleep(1000);
+
+                TickEvent?.Invoke(typeof(Board), EventArgs.Empty);
+
+                /*Console.WriteLine("Component:\t" + string.Join('\t', Components.Select(x => x.ToString().Substring(x.ToString().LastIndexOf('.') + 1))));
+                Console.WriteLine("WriteBuffer:\t" + string.Join('\t', WriteBuffer));
+                Console.WriteLine("Output:\t\t" + string.Join('\t', Components.Select(x => string.Join(',', x.Outputs.Select(y => y.Powered)))));
+                Console.ReadLine();*/
 
                 bool[] readBuffer = ReadBuffer;
                 ReadBuffer = WriteBuffer;

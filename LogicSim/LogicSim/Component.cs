@@ -67,6 +67,7 @@ namespace LogicSim
         {
             Inputs = inputs.Select(x => new Input(this, x)).ToArray();
             Outputs = outputs.Select(x => new Output(this, x)).ToArray();
+            Index = index;
 
             foreach(Input i in Inputs)
                 i.Link.Inputs = i.Link.Inputs.Append(i).ToArray();
