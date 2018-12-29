@@ -10,6 +10,9 @@ namespace LogicSim
         private Output[] _Outputs;
         private Input[] _Inputs;
 
+        /// <summary>
+        /// whether link is powered, determined by the power state of all outputs connected.
+        /// </summary>
         public bool Powered
         {
             get
@@ -18,6 +21,9 @@ namespace LogicSim
             }
         }
 
+        /// <summary>
+        /// all outputs connected to the link.
+        /// </summary>
         public Output[] Outputs
         {
             get
@@ -30,6 +36,9 @@ namespace LogicSim
             }
         }
 
+        /// <summary>
+        /// all inputs connected to the link.
+        /// </summary>
         public Input[] Inputs
         {
             get
@@ -42,22 +51,38 @@ namespace LogicSim
             }
         }
 
+        /// <summary>
+        /// creates a new link with no inputs and outputs.
+        /// </summary>
         public Link()
         {
             Outputs = new Output[0];
             Inputs = new Input[0];
         }
 
+        /// <summary>
+        /// creates a new link with no inputs and specified outputs.
+        /// </summary>
+        /// <param name="outputs">outputs to add to the link</param>
         public Link(Output[] outputs)
         {
             Outputs = outputs;
         }
 
+        /// <summary>
+        /// creates a new link with specified inputs and no outputs.
+        /// </summary>
+        /// <param name="inputs">inputs to add to the link</param>
         public Link(Input[] inputs)
         {
             Inputs = inputs;
         }
 
+        /// <summary>
+        /// creates a new link with specified inputs and outputs.
+        /// </summary>
+        /// <param name="outputs">outputs to add to the link</param>
+        /// <param name="inputs">inputs to add to the link</param>
         public Link(Output[] outputs, Input[] inputs)
         {
             Outputs = outputs;

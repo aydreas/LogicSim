@@ -10,6 +10,9 @@ namespace LogicSim
         private Link _Link;
         private bool _Powered;
 
+        /// <summary>
+        /// whether output is powered.
+        /// </summary>
         public bool Powered {
             get
             {
@@ -29,6 +32,9 @@ namespace LogicSim
             }
         }
 
+        /// <summary>
+        /// Component connected to the output.
+        /// </summary>
         public Component Component
         {
             get
@@ -41,6 +47,9 @@ namespace LogicSim
             }
         }
 
+        /// <summary>
+        /// Link associated to the output.
+        /// </summary>
         public Link Link
         {
             get
@@ -53,21 +62,37 @@ namespace LogicSim
             }
         }
 
+        /// <summary>
+        /// Creates a new empty output.
+        /// </summary>
         public Output()
         {
 
         }
 
+        /// <summary>
+        /// Creates a new output.
+        /// </summary>
+        /// <param name="component">Component connected to the output</param>
         public Output(Component component)
         {
             Component = component;
         }
 
+        /// <summary>
+        /// Creates a new output.
+        /// </summary>
+        /// <param name="link">Link associated to the output</param>
         public Output(Link link)
         {
             Link = link;
         }
 
+        /// <summary>
+        /// Creates a new output.
+        /// </summary>
+        /// <param name="component">Component connected to the output</param>
+        /// <param name="link">Link associated to the output</param>
         public Output(Component component, Link link)
         {
             Component = component;

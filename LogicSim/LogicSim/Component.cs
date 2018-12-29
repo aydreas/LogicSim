@@ -9,8 +9,15 @@ namespace LogicSim
     {
         private Input[] _Inputs;
         private Output[] _Outputs;
+
+        /// <summary>
+        /// 0-based index of component, has to be in ascending order and unique.
+        /// </summary>
         public readonly int Index;
 
+        /// <summary>
+        /// Inputs of the component.
+        /// </summary>
         public Input[] Inputs
         {
             get
@@ -25,6 +32,9 @@ namespace LogicSim
             }
         }
 
+        /// <summary>
+        /// Outputs of the component.
+        /// </summary>
         public Output[] Outputs
         {
             get
@@ -39,9 +49,19 @@ namespace LogicSim
             }
         }
 
+        /// <summary>
+        /// Number of inputs the component requires.
+        /// </summary>
         public abstract int InputCount { get; }
+
+        /// <summary>
+        /// Number of outputs the component requires.
+        /// </summary>
         public abstract int OutputCount { get; }
 
+        /// <summary>
+        /// Main computation for component, gets called when any input changes.
+        /// </summary>
         public abstract void Compute();
 
         /// <summary>

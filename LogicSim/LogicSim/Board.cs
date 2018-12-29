@@ -16,11 +16,24 @@ namespace LogicSim
             Running = 3
         }
 
+        /// <summary>
+        /// Current execution state of the board.
+        /// </summary>
         public static State CurrentState { get; private set; }
 
+        /// <summary>
+        /// Number of worker threads.
+        /// </summary>
         public static int THREADNUM { get; private set; }
+
+        /// <summary>
+        /// if true, confirmation from the network is required for each cycle.
+        /// </summary>
         public static bool SYNCHRONIZEDEXECUTION { get; private set; }
 
+        /// <summary>
+        /// Components on the board.
+        /// </summary>
         public static Component[] Components { get; private set; }
 
         private static bool[] Buffer1;
@@ -31,12 +44,23 @@ namespace LogicSim
         private static Thread[] WorkerThreads;
         private static Barrier WorkerBarrier;
 
+        /// <summary>
+        /// EventHandler which fires before every cycle finishes.
+        /// </summary>
         public static event EventHandler TickEvent;
 
         private static System.Timers.Timer BenchmarkTimer = new System.Timers.Timer();
         private static long BenchmarkCounter = 0;
-        public static float CurrentSpeed { get; private set; }
 
+        /// <summary>
+        /// Current cycle speed in hertz.
+        /// </summary>
+        public static long CurrentSpeed { get; private set; }
+
+        /// <summary>
+        /// Initializes board, required to function.
+        /// </summary>
+        /// <param name="components">Components which should be added to the board</param>
         public static void Init(Component[] components)
         {
             if (CurrentState != State.Uninitialized)
@@ -105,6 +129,9 @@ namespace LogicSim
             CurrentState = State.Initialized;
         }
 
+        /// <summary>
+        /// Starts or resumes the simulation.
+        /// </summary>
         public static void Start()
         {
             switch (CurrentState)
@@ -126,6 +153,9 @@ namespace LogicSim
             }
         }
 
+        /// <summary>
+        /// Pauses the simulation.
+        /// </summary>
         public static void Pause()
         {
             switch (CurrentState)
@@ -151,11 +181,11 @@ namespace LogicSim
 
             long counter = BenchmarkCounter;
             BenchmarkCounter = 0;
+            CurrentSpeed = counter;
             string[] SI = new string[] { "", "k", "M", "G", "T" };
             int exponent = 0;
             while(counter / Math.Pow(10, exponent) > 1000)
                 exponent += 3;
-
             Console.WriteLine((counter / Math.Pow(10, exponent)) + " " + (exponent <= 12 ? SI[exponent / 3] : "10^" + exponent) + "Hz");
         }
 
