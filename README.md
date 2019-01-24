@@ -1,2 +1,2 @@
 # LogicSim
-.NET Core Multi-Threaded Simulator for Logic Circuits.
+Multi-Threaded Simulator for Logic Circuits as Node.JS Native C++ Module.
