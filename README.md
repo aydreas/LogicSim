@@ -1,2 +1,2 @@
 # LogicSim
-.NET Core Multi-Threaded Simulator for Logic Circuits.
+Multi-Threaded Simulator for Logic Circuits written for .NET Core.
