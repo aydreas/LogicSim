@@ -1,0 +1,14 @@
+{
+  "name": "logicsim",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node-gyp build",
+	"install": "node-gyp rebuild",
+	"start": "node ./index.js"
+  },
+  "author": "Andreas Schloessl",
+  "license": "MIT",
+  "gypfile": true
+}
