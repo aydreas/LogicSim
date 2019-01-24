@@ -94,13 +94,6 @@ void Board::init(Component** components, int componentCount, int threadCount, bo
 			Board::currentSpeed = ((counter - Board::lastCaptureTick) * (unsigned long)10e8) / diff;
 			lastCapture = std::chrono::high_resolution_clock::now();
 			Board::lastCaptureTick = counter;
-
-			char SI[] = { ' ', 'k', 'M', 'G', 'T' };
-			int exponent = 0;
-			while (Board::currentSpeed / std::pow(10, exponent) > 1000)
-				exponent += 3;
-			std::cout << (Board::currentSpeed / std::pow(10, exponent)) << " " << SI[exponent / 3] << "Hz" << std::endl;
-			std::cout << Board::getComponents()[0]->outputs[0]->getPowered() << std::endl;
 		}
 	});
 }
@@ -119,6 +112,11 @@ bool Board::getManualClock() {
 
 Board::State Board::getCurrentState() {
 	return currentState;
+}
+
+unsigned long long int Board::getCurrentTick()
+{
+	return tick;
 }
 
 void Board::stop() {

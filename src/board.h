@@ -23,6 +23,7 @@ public:
 	static Component** getComponents();
 	static bool getManualClock();
 	static State getCurrentState();
+	static unsigned long long int getCurrentTick();
 	static unsigned long long currentSpeed;
 	static Events::Event<> tickEvent;
 	static void stop();

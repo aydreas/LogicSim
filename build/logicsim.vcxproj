@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4DFFF8AE-4B1E-6E85-4AD8-DAC6B7512BE1}</ProjectGuid>
+    <ProjectGuid>{5DCE5815-4E33-D675-A883-0B8E1936CDCA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>logicsim</RootNamespace>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
