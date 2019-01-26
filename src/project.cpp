@@ -10,10 +10,6 @@
 #include "clk.h"
 #include "node.h"
 
-const char* v8ToString(v8::Local<v8::Value> str) {
-	return *v8::String::Utf8Value(str->ToString());
-}
-
 void init(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	if (args.Length() != 1 || !args[0]->IsObject()) {
 		Nan::ThrowTypeError("Error: One object expected!");
@@ -28,7 +24,7 @@ void init(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	v8::Local<v8::Object> obj = args[0]->ToObject();
 	if (obj->Get(Nan::New("links").ToLocalChecked())->IsNumber()) {
 		linkCount = obj->Get(Nan::New("links").ToLocalChecked())->Int32Value();
-		links = new Link*[linkCount];
+		links = new Link*[linkCount] { 0 };
 		for (unsigned int i = 0; i < linkCount; i++) {
 			links[i] = new Link();
 		}
@@ -38,12 +34,11 @@ void init(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 		v8::Local<v8::Array> v8Components = v8::Local<v8::Array>::Cast(obj->Get(Nan::New("components").ToLocalChecked()));
 
 		componentCount = v8Components->Length();
-		components = new Component*[componentCount];
+		components = new Component*[componentCount] { 0 };
 		for (unsigned int i = 0; i < componentCount; i++) {
-			std::cout << "Processing Component " << i << " of " << componentCount << std::endl;
 			v8::Local<v8::Object> v8Component = v8Components->Get(i)->ToObject();
 
-			const char* componentType = v8ToString(v8Component->Get(Nan::New("type").ToLocalChecked()));
+			const char* componentType = *Nan::Utf8String(v8Component->Get(Nan::New("type").ToLocalChecked()));
 			v8::Local<v8::Array> v8ComponentInputs = v8::Local<v8::Array>::Cast(v8Component->Get(Nan::New("inputs").ToLocalChecked()));
 			Link** componentInputs = new Link*[v8ComponentInputs->Length()];
 			for (unsigned int j = 0; j < v8ComponentInputs->Length(); j++)
@@ -54,12 +49,14 @@ void init(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 			for (unsigned int j = 0; j < v8ComponentOutputs->Length(); j++)
 				componentOutputs[j] = links[v8ComponentOutputs->Get(j)->Int32Value()];
 
-			if (componentType == "CLK")
+			if (!strcmp(componentType, "CLK"))
 				components[i] = new CLK(componentInputs, componentOutputs, v8Component->Get(Nan::New("CLK_Speed").ToLocalChecked())->Int32Value());
-			else if(componentType == "AND")
+			if (!strcmp(componentType, "AND"))
 				components[i] = new AND(componentInputs, componentOutputs);
-			else
+
+			if (components[i] == nullptr) {
 				Nan::ThrowTypeError((std::string("Error: Component '") + std::string(componentType) + std::string("' (") + std::to_string(i) + std::string(") is of no valid type!")).c_str());
+			}
 		}
 	}
 
