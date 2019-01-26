@@ -5,10 +5,16 @@
   "main": "index.js",
   "scripts": {
     "build": "node-gyp build",
-	"install": "node-gyp rebuild",
-	"start": "node ./index.js"
+    "install": "node-gyp rebuild",
+    "start": "node ./index.js"
   },
   "author": "Andreas Schloessl",
   "license": "MIT",
-  "gypfile": true
+  "gypfile": true,
+  "devDependencies": {
+    "node-gyp": "^3.8.0"
+  },
+  "dependencies": {
+    "nan": "^2.12.1"
+  }
 }

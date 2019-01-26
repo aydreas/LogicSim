@@ -4,7 +4,8 @@
       "target_name": "logicsim",
 	  "include_dirs": [
 		"src",
-		"src/components"
+		"src/components",
+		"<!(node -e \"require('nan')\")"
 	  ],
       "sources": [
 		"src/project.cpp",
