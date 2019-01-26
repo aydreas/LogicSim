@@ -1,6 +1,7 @@
 const logicsim = require('./build/Release/logicsim.node');
 logicsim.init({
 	"links" : 3,
+	"threads": 1,
 	"components" : [
 		{
 			"type" : "CLK",
@@ -34,4 +35,7 @@ logicsim.init({
 });
 logicsim.start();
 
-setInterval(() => console.log(logicsim.getStatus()), 1000);
+setInterval(() => {
+	console.log(logicsim.getStatus());
+	console.log(logicsim.getBoard());
+}, 1000);

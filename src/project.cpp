@@ -16,12 +16,17 @@ void init(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 		return;
 	}
 
+	unsigned int threadCount = 1;
 	unsigned int componentCount = 0;
 	unsigned int linkCount = 0;
 	Component** components;
 	Link** links;
 
 	v8::Local<v8::Object> obj = args[0]->ToObject();
+
+	if (obj->Get(Nan::New("threads").ToLocalChecked())->IsNumber())
+		threadCount = obj->Get(Nan::New("threads").ToLocalChecked())->Int32Value();
+
 	if (obj->Get(Nan::New("links").ToLocalChecked())->IsNumber()) {
 		linkCount = obj->Get(Nan::New("links").ToLocalChecked())->Int32Value();
 		links = new Link*[linkCount] { 0 };
@@ -56,27 +61,12 @@ void init(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 
 			if (components[i] == nullptr) {
 				Nan::ThrowTypeError((std::string("Error: Component '") + std::string(componentType) + std::string("' (") + std::to_string(i) + std::string(") is of no valid type!")).c_str());
+				return;
 			}
 		}
 	}
 
-
-	/*Link** links = new Link*[3]
-	{
-		new Link(),
-		new Link(),
-		new Link()
-	};
-
-	Component** components = new Component*[componentCount];
-
-	components[0] = new CLK(new Link*[1]{ links[1] }, new Link*[1]{ links[0] });
-
-	for (unsigned int i = 1; i < componentCount; i++) {
-		components[i] = new AND(new Link*[2]{ links[0], links[1] }, new Link*[1]{ links[2] });
-	}*/
-
-	Board::init(components, componentCount, 1);
+	Board::init(components, links, componentCount, linkCount, (int)threadCount);
 }
 
 void start(const Nan::FunctionCallbackInfo<v8::Value>& args) {
@@ -88,7 +78,6 @@ void stop(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 }
 
 void getStatus(const Nan::FunctionCallbackInfo<v8::Value>& args) {
-	v8::Isolate* isolate = args.GetIsolate();
 	v8::Local<v8::Object> obj = Nan::New<v8::Object>();
 	
 	obj->Set(Nan::New("currentSpeed").ToLocalChecked(), Nan::New((double)Board::currentSpeed));
@@ -101,11 +90,35 @@ void getStatus(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	args.GetReturnValue().Set(obj);
 }
 
+void getBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
+	v8::Local<v8::Array> v8Components = Nan::New<v8::Array>();
+	for (int i = 0; i < Board::componentCount; i++) {
+		Component* component = Board::getComponents()[i];
+		v8::Local<v8::Array> v8Component = Nan::New<v8::Array>();
+
+		for (int j = 0; j < component->getOutputCount(); j++)
+			v8Component->Set(j, Nan::New(component->outputs[j]->getPowered()));
+
+		v8Components->Set(i, v8Component);
+	}
+
+	v8::Local<v8::Array> v8Links = Nan::New<v8::Array>();
+	for (int i = 0; i < Board::linkCount; i++) {
+		v8Links->Set(i, Nan::New(Board::getLinks()[i]->getPowered()));
+	}
+
+	v8::Local<v8::Object> v8Board = Nan::New<v8::Object>();
+	v8Board->Set(Nan::New("components").ToLocalChecked(), v8Components);
+	v8Board->Set(Nan::New("links").ToLocalChecked(), v8Links);
+	args.GetReturnValue().Set(v8Board);
+}
+
 void Initialize(v8::Local<v8::Object> exports) {
 	exports->Set(Nan::New("init").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(init)->GetFunction());
 	exports->Set(Nan::New("start").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(start)->GetFunction());
 	exports->Set(Nan::New("stop").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(stop)->GetFunction());
 	exports->Set(Nan::New("getStatus").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(getStatus)->GetFunction());
+	exports->Set(Nan::New("getBoard").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(getBoard)->GetFunction());
 }
 
 NODE_MODULE(NODE_GYP_MODULE_NAME, Initialize)

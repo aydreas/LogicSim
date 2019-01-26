@@ -17,12 +17,14 @@ bool* Board::writeBuffer(nullptr);
 bool* Board::wipeBuffer(nullptr);
 
 Component** Board::components(nullptr);
+Link** Board::links(nullptr);
 int Board::threadCount(1);
 bool Board::manualClock(false);
 unsigned long long Board::lastCaptureTick(0);
 unsigned long long Board::tick(0);
 unsigned long long Board::currentSpeed(0);
 size_t Board::componentCount(0);
+size_t Board::linkCount(0);
 std::thread** Board::threads = nullptr;
 SpinlockBarrier* Board::barrier(nullptr);
 Events::Event<> Board::tickEvent;
@@ -30,30 +32,32 @@ std::chrono::high_resolution_clock::time_point Board::lastCapture(std::chrono::h
 
 Board::State Board::currentState(Board::Uninitialized);
 
-void Board::init(Component** components, int componentCount)
+void Board::init(Component** components, Link** links, int componentCount, int linkCount)
 {
-	Board::init(components, componentCount, 1, false);
+	Board::init(components, links, componentCount, linkCount, 1, false);
 }
 
-void Board::init(Component** components, int componentCount, bool manualClock)
+void Board::init(Component** components, Link** links, int componentCount, int linkCount, bool manualClock)
 {
-	Board::init(components, componentCount, 1, manualClock);
+	Board::init(components, links, componentCount, linkCount, 1, manualClock);
 }
 
-void Board::init(Component** components, int componentCount, int threadCount)
+void Board::init(Component** components, Link** links, int componentCount, int linkCount, int threadCount)
 {
-	Board::init(components, componentCount, threadCount, false);
+	Board::init(components, links, componentCount, linkCount, threadCount, false);
 }
 
-void Board::init(Component** components, int componentCount, int threadCount, bool manualClock)
+void Board::init(Component** components, Link** links, int componentCount, int linkCount, int threadCount, bool manualClock)
 {
 	if (Board::currentState != Board::Uninitialized)
 		return;
 
 	Board::components = components;
+	Board::links = links;
 	Board::threadCount = threadCount;
 	Board::manualClock = manualClock;
 	Board::componentCount = componentCount;
+	Board::linkCount = linkCount;
 
 	Board::buffer1 = new bool[componentCount] { 0 };
 	Board::buffer2 = new bool[componentCount] { 0 };
@@ -104,6 +108,11 @@ int Board::getThreadCount() {
 
 Component** Board::getComponents() {
 	return components;
+}
+
+Link** Board::getLinks()
+{
+	return links;
 }
 
 bool Board::getManualClock() {
