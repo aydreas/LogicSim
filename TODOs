@@ -1,4 +1,5 @@
 board deletetions
+synchronous mode
 	
 optimisation approaches:
 	generate link state on setPowered() instead of getPowered()
