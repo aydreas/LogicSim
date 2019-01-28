@@ -25,14 +25,14 @@ for (let i = 0; i < 1; i++) {
     });
 }
 
-logicsim.init({
+logicsim.newBoard("testBoard", {
 	"links" : 3,
     "threads": 1,
     "components": components
 });
-logicsim.start();
+logicsim.start("testBoard");
 
 setInterval(() => {
-	console.log(logicsim.getStatus());
-	console.log(logicsim.getBoard());
+	console.log(logicsim.getStatus("testBoard"));
+	console.log(logicsim.getBoard("testBoard"));
 }, 1000);

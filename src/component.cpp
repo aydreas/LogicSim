@@ -2,18 +2,19 @@
 #include "input.h"
 #include "output.h"
 #include "link.h"
+#include "board.h"
 #include <memory>
 
-int Component::componentCounter = 0;
-
-Component::Component(Input** inputs, Output** outputs)
+Component::Component(Board* board, Input** inputs, Output** outputs) :
+	board(board),
+	inputs(inputs),
+	outputs(outputs)
 {
-	this->inputs = inputs;
-	this->outputs = outputs;
-	this->componentIndex = Component::getNextComponentIndex();
+	componentIndex = board->getNextComponentIndex();
 }
 
-Component::Component(Link** inputs, Link** outputs, int inputCount, int outputCount)
+Component::Component(Board* board, Link** inputs, Link** outputs, int inputCount, int outputCount) :
+	board(board)
 {
 	this->inputs = new Input*[inputCount];
 	for (int i = 0; i < inputCount; i++) {
@@ -42,14 +43,10 @@ Component::Component(Link** inputs, Link** outputs, int inputCount, int outputCo
 		outputs[i]->outputs = newOutputs;
 		outputs[i]->outputCount++;
 	}
-	this->componentIndex = getNextComponentIndex();
+
+	componentIndex = board->getNextComponentIndex();
 }
 
 Component::~Component()
 {
-}
-
-int Component::getNextComponentIndex()
-{
-	return componentCounter++;
 }
