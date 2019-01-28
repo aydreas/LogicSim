@@ -1,0 +1,8 @@
+make board instantiable
+	identifier
+	reset
+	create
+	--> Caution: Mem leaks!
+	
+optimisation approaches:
+	generate link state on setPowered() instead of getPowered()
