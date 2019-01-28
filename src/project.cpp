@@ -10,7 +10,6 @@
 #include "clk.h"
 #include "node.h"
 
-//TODO: instatiable
 void init(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	if (args.Length() != 1 || !args[0]->IsObject()) {
 		Nan::ThrowTypeError("Error: One object expected!");
