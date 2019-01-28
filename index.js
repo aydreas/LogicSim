@@ -30,9 +30,9 @@ logicsim.newBoard("testBoard", {
     "threads": 1,
     "components": components
 });
-logicsim.start("testBoard");
+logicsim.startBoard("testBoard");
 
 setInterval(() => {
-	console.log(logicsim.getStatus("testBoard"));
+	console.log(logicsim.getBoardStatus("testBoard"));
 	console.log(logicsim.getBoard("testBoard"));
 }, 1000);
