@@ -6,41 +6,48 @@
 
 class Component;
 class SpinlockBarrier;
+class Link;
 
 class Board
 {
 public:
-	static void init(Component** components, int componentCount);
-	static void init(Component** components, int componentCount, int threadCount);
-	static void init(Component** components, int componentCount, bool manualClock);
-	static void init(Component** components, int componentCount, int threadCount, bool manualClock);
-	static bool* readBuffer;
-	static bool* writeBuffer;
-	static bool* wipeBuffer;
-	static size_t componentCount;
+	Board();
+	void init(Component** components, Link** links, int componentCount, int linkCount);
+	void init(Component** components, Link** links, int componentCount, int linkCount, int threadCount);
+	void init(Component** components, Link** links, int componentCount, int linkCount, bool manualClock);
+	void init(Component** components, Link** links, int componentCount, int linkCount, int threadCount, bool manualClock);
+	unsigned int getNextComponentIndex();
+	bool* readBuffer = nullptr;
+	bool* writeBuffer = nullptr;
+	bool* wipeBuffer = nullptr;
+	size_t componentCount = 0;
+	size_t linkCount = 0;
 	enum State { Uninitialized, Stopped, Running, Stopping };
-	static int getThreadCount();
-	static Component** getComponents();
-	static bool getManualClock();
-	static State getCurrentState();
-	static unsigned long long int getCurrentTick();
-	static unsigned long long currentSpeed;
-	static Events::Event<> tickEvent;
-	static void stop();
-	static void start();
+	int getThreadCount();
+	Component** getComponents();
+	Link** getLinks();
+	bool getManualClock();
+	State getCurrentState();
+	unsigned long long int getCurrentTick();
+	unsigned long long currentSpeed = 0;
+	Events::Event<> tickEvent;
+	void stop();
+	void start();
 	
 private:
-	static bool* buffer1;
-	static bool* buffer2;
-	static bool* buffer3;
-	static int threadCount;
-	static Component** components;
-	static bool manualClock;
-	static State currentState;
-	static unsigned long long int tick;
-	static std::thread** threads;
-	static SpinlockBarrier* barrier;
-	static std::chrono::high_resolution_clock::time_point lastCapture;
-	static unsigned long long int lastCaptureTick;
+	bool* buffer1 = nullptr;
+	bool* buffer2 = nullptr;
+	bool* buffer3 = nullptr;
+	int threadCount = 1;
+	Component** components = nullptr;
+	Link** links = nullptr;
+	bool manualClock = false;
+	State currentState = Board::Uninitialized;
+	unsigned long long int tick = 0;
+	std::thread** threads = nullptr;
+	SpinlockBarrier* barrier = nullptr;
+	std::chrono::high_resolution_clock::time_point lastCapture;
+	unsigned long long int lastCaptureTick = 0;
+	unsigned int componentIndex = 0;
 };
 

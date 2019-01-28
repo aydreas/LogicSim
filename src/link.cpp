@@ -2,20 +2,22 @@
 #include "link.h"
 #include "output.h"
 
-Link::Link()
+Link::Link(Board* board) :
+	board(board),
+	inputCount(0),
+	outputCount(0),
+	inputs(nullptr),
+	outputs(nullptr)
 {
-	this->inputCount = 0;
-	this->outputCount = 0;
-	this->inputs = nullptr;
-	this->outputs = nullptr;
 }
 
-Link::Link(Input** inputs, Output** outputs, int outputCount, int inputCount)
+Link::Link(Board* board, Input** inputs, Output** outputs, int inputCount, int outputCount) :
+	board(board),
+	inputs(inputs),
+	outputs(outputs),
+	inputCount(inputCount),
+	outputCount(outputCount)
 {
-	this->inputs = inputs;
-	this->outputs = outputs;
-	this->outputCount = outputCount;
-	this->inputCount = inputCount;
 }
 
 Link::~Link()

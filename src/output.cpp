@@ -25,7 +25,7 @@ void Output::setPowered(bool state) {
 		powered = state;
 
 		for (int i = 0; i < link->inputCount; i++) {
-			Board::writeBuffer[link->inputs[i]->getComponent()->componentIndex] = true;
+			link->board->writeBuffer[link->inputs[i]->getComponent()->componentIndex] = true;
 		}
 	}
 }
