@@ -1,8 +1,8 @@
 build/
 node-modules/
+benchmarks/
 .vs/
 .git/
 .gitignore
 .gitattributes
-test.js
 TODOs
