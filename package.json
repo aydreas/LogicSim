@@ -1,7 +1,7 @@
 {
   "name": "logicsim",
   "version": "0.0.3",
-  "description": "",
+  "description": "Multi-Threaded C++ Node.JS Module for Simulating Logic Circuits.",
   "main": "index.js",
   "scripts": {
     "build": "node-gyp build",
