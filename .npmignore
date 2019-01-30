@@ -1,8 +1,0 @@
-build/
-node-modules/
-.vs/
-.git/
-.gitignore
-.gitattributes
-test.js
-TODOs

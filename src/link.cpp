@@ -1,4 +1,3 @@
-#include <algorithm>
 #include "link.h"
 #include "output.h"
 
@@ -7,7 +6,8 @@ Link::Link(Board* board) :
 	inputCount(0),
 	outputCount(0),
 	inputs(nullptr),
-	outputs(nullptr)
+	outputs(nullptr),
+	powered(0)
 {
 }
 
@@ -16,15 +16,11 @@ Link::Link(Board* board, Input** inputs, Output** outputs, int inputCount, int o
 	inputs(inputs),
 	outputs(outputs),
 	inputCount(inputCount),
-	outputCount(outputCount)
+	outputCount(outputCount),
+	powered(0)
 {
 }
 
 Link::~Link()
 {
-}
-
-bool Link::getPowered()
-{
-	return std::any_of(outputs, outputs + outputCount, [](Output* x) { return x->getPowered(); });
 }

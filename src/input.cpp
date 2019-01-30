@@ -2,10 +2,10 @@
 #include "component.h"
 #include "link.h"
 
-Input::Input(Component* component, Link* link)
+Input::Input(Component* component, Link* link) :
+	component(component),
+	link(link)
 {
-	this->component = component;
-	this->link = link;
 }
 
 Input::~Input()
@@ -14,7 +14,7 @@ Input::~Input()
 
 bool Input::getPowered()
 {
-	return link->getPowered();
+	return link->powered > 0;
 }
 
 Component* Input::getComponent()
