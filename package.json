@@ -1,13 +1,22 @@
 {
   "name": "logicsim",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Multi-Threaded C++ Node.JS Module for Simulating Logic Circuits.",
+  "homepage": "https://github.com/yEinFallsLos/LogicSim",
+  "bugs": {
+    "url": "https://github.com/yEinFallsLos/LogicSim/issues"
+  },
   "main": "index.js",
   "scripts": {
     "build": "node-gyp build",
     "install": "node-gyp rebuild",
-    "start": "node ./index.js"
+    "test": "node ./testRun.js"
   },
+  "files": [
+    "src",
+    "binding.gyp"
+  ],
+  "repository": "github:yEinFallsLos/LogicSim",
   "author": "Andreas Schloessl",
   "license": "MIT",
   "gypfile": true,
