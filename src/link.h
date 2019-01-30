@@ -10,7 +10,7 @@ public:
 	Link(Board* board);
 	Link(Board* board, Input** inputs, Output** outputs, int inputCount, int outputCount);
 	~Link();
-	bool getPowered();
+	int powered;
 	Input** inputs;
 	Output** outputs;
 	Board* board;
