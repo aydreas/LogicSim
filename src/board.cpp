@@ -1,11 +1,12 @@
 #include <thread>
 #include <chrono>
+#include <algorithm>
 #include "board.h"
 #include "component.h"
+#include "link.h"
 #include "spinlock_barrier.h"
 #include "events.h"
 #include "output.h"
-#include <iostream>
 
 Board::Board()
 {
@@ -76,7 +77,7 @@ void Board::init(Component** components, Link** links, int componentCount, int l
 			lastCapture = std::chrono::high_resolution_clock::now();
 			lastCaptureTick = tick;
 		}
-	});
+	}, 2);
 }
 
 unsigned int Board::getNextComponentIndex()
@@ -134,10 +135,15 @@ void Board::start() {
 				if (currentState == Board::Stopped)
 					return;
 
-				for (int i = id; i < componentCount; i +=threadCount) {
+				for (int i = id; i < componentCount; i += threadCount) {
 					if (readBuffer[i])
 						components[i]->compute();
 					wipeBuffer[i] = false;
+				}
+				barrier->wait();
+
+				for (int i = id; i < linkCount; i += threadCount) {
+					links[i]->powered = std::any_of(links[i]->outputs, links[i]->outputs + links[i]->outputCount, [](Output* x) { return x->getPowered(); });
 				}
 				barrier->wait();
 			}

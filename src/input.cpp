@@ -14,7 +14,7 @@ Input::~Input()
 
 bool Input::getPowered()
 {
-	return link->powered > 0;
+	return link->powered;
 }
 
 Component* Input::getComponent()
