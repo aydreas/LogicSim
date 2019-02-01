@@ -23,7 +23,11 @@
 		"src/output.h",
 		"src/spinlock_barrier.h",
 		"src/components/and.h",
-		"src/components/clk.h"
+		"src/components/clk.h",
+		"src/components/delay.h",
+		"src/components/not.h",
+		"src/components/or.h",
+		"src/components/xor.h"
 	  ]
     }
   ]
