@@ -10,7 +10,7 @@
   "scripts": {
     "build": "node-gyp build",
     "install": "node-gyp rebuild",
-    "test": "node ./testRun.js"
+    "test": "node ./test.js"
   },
   "files": [
     "src",

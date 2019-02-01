@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5DCE5815-4E33-D675-A883-0B8E1936CDCA}</ProjectGuid>
+    <ProjectGuid>{CF0A0705-00D4-06CC-8816-5BCCADAAD2C2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>logicsim</RootNamespace>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
@@ -48,16 +48,15 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\11.8.0\include\node;C:\Users\Andreas\.node-gyp\11.8.0\src;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\uv\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\zlib;C:\Users\Andreas\.node-gyp\11.8.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\10.6.0\include\node;C:\Users\Andreas\.node-gyp\10.6.0\src;C:\Users\Andreas\.node-gyp\10.6.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\10.6.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\10.6.0\deps\uv\include;C:\Users\Andreas\.node-gyp\10.6.0\deps\zlib;C:\Users\Andreas\.node-gyp\10.6.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj /MP %(AdditionalOptions)</AdditionalOptions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <DebugInformationFormat>OldStyle</DebugInformationFormat>
-      <DisableSpecificWarnings>4351;4355;4800;4251;4275;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251;4275;4267;4351;4355;4800;4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>false</ExceptionHandling>
       <MinimalRebuild>false</MinimalRebuild>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OmitFramePointers>false</OmitFramePointers>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -69,7 +68,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\Andreas\.node-gyp\11.8.0\x64\node.lib&quot;</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\Andreas\.node-gyp\10.6.0\x64\node.lib&quot;</AdditionalDependencies>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <AllowIsolation>true</AllowIsolation>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -84,24 +83,23 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\11.8.0\include\node;C:\Users\Andreas\.node-gyp\11.8.0\src;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\uv\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\zlib;C:\Users\Andreas\.node-gyp\11.8.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\10.6.0\include\node;C:\Users\Andreas\.node-gyp\10.6.0\src;C:\Users\Andreas\.node-gyp\10.6.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\10.6.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\10.6.0\deps\uv\include;C:\Users\Andreas\.node-gyp\10.6.0\deps\zlib;C:\Users\Andreas\.node-gyp\10.6.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=logicsim;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;BUILDING_NODE_EXTENSION;DEBUG;_DEBUG;V8_ENABLE_CHECKS;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\11.8.0\include\node;C:\Users\Andreas\.node-gyp\11.8.0\src;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\uv\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\zlib;C:\Users\Andreas\.node-gyp\11.8.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\10.6.0\include\node;C:\Users\Andreas\.node-gyp\10.6.0\src;C:\Users\Andreas\.node-gyp\10.6.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\10.6.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\10.6.0\deps\uv\include;C:\Users\Andreas\.node-gyp\10.6.0\deps\zlib;C:\Users\Andreas\.node-gyp\10.6.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <DebugInformationFormat>OldStyle</DebugInformationFormat>
-      <DisableSpecificWarnings>4351;4355;4800;4251;4275;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251;4275;4267;4351;4355;4800;4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>false</ExceptionHandling>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OmitFramePointers>true</OmitFramePointers>
       <Optimization>Full</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -118,7 +116,7 @@
       <AdditionalOptions>/LTCG:INCREMENTAL %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\Andreas\.node-gyp\11.8.0\x64\node.lib&quot;</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\Andreas\.node-gyp\10.6.0\x64\node.lib&quot;</AdditionalDependencies>
       <AdditionalOptions>/ignore:4199 /LTCG:INCREMENTAL %(AdditionalOptions)</AdditionalOptions>
       <AllowIsolation>true</AllowIsolation>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -135,7 +133,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\11.8.0\include\node;C:\Users\Andreas\.node-gyp\11.8.0\src;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\uv\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\zlib;C:\Users\Andreas\.node-gyp\11.8.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\10.6.0\include\node;C:\Users\Andreas\.node-gyp\10.6.0\src;C:\Users\Andreas\.node-gyp\10.6.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\10.6.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\10.6.0\deps\uv\include;C:\Users\Andreas\.node-gyp\10.6.0\deps\zlib;C:\Users\Andreas\.node-gyp\10.6.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=logicsim;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;BUILDING_NODE_EXTENSION;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
@@ -146,16 +144,19 @@
     <ClInclude Include="..\src\barrier.h"/>
     <ClInclude Include="..\src\board.h"/>
     <ClInclude Include="..\src\component.h"/>
+    <ClInclude Include="..\src\user_input_component.h"/>
     <ClInclude Include="..\src\events.h"/>
     <ClInclude Include="..\src\input.h"/>
     <ClInclude Include="..\src\link.h"/>
     <ClInclude Include="..\src\output.h"/>
     <ClInclude Include="..\src\spinlock_barrier.h"/>
     <ClInclude Include="..\src\components\and.h"/>
+    <ClInclude Include="..\src\components\button.h"/>
     <ClInclude Include="..\src\components\clk.h"/>
     <ClInclude Include="..\src\components\delay.h"/>
     <ClInclude Include="..\src\components\not.h"/>
     <ClInclude Include="..\src\components\or.h"/>
+    <ClInclude Include="..\src\components\switch.h"/>
     <ClInclude Include="..\src\components\xor.h"/>
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +166,7 @@
     <ClCompile Include="..\src\input.cpp"/>
     <ClCompile Include="..\src\link.cpp"/>
     <ClCompile Include="..\src\output.cpp"/>
-    <ClCompile Include="C:\Program Files\nodejs\node_modules\npm\node_modules\node-gyp\src\win_delay_load_hook.cc"/>
+    <ClCompile Include="c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\NodeJs\node_modules\node-gyp\src\win_delay_load_hook.cc"/>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
   <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>

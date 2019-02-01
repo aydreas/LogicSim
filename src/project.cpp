@@ -4,17 +4,25 @@
 #include <string>
 #include <map>
 #include <nan.h>
+#include "node.h"
 #include "board.h"
 #include "component.h"
-#include "and.h"
 #include "link.h"
+#include "user_input_component.h"
+
+#include "and.h"
+#include "button.h"
 #include "clk.h"
-#include "node.h"
+#include "delay.h"
+#include "not.h"
+#include "or.h"
+#include "switch.h"
+#include "xor.h"
 
 std::map<std::string, Board*> boards;
 
 void newBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
-	if (args.Length() != 2 || (!args[0]->IsName() && !args[1]->IsObject())) {
+	if (args.Length() != 2 || !args[0]->IsName() || !args[1]->IsObject()) {
 		Nan::ThrowTypeError("Usage: newBoards([string]identifier, [object]data");
 		return;
 	}
@@ -64,11 +72,23 @@ void newBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 			Link** componentOutputs = new Link*[v8ComponentOutputs->Length()];
 			for (unsigned int j = 0; j < v8ComponentOutputs->Length(); j++)
 				componentOutputs[j] = links[v8ComponentOutputs->Get(j)->Int32Value(Nan::GetCurrentContext()).FromJust()];
-
-			if (!strcmp(componentType, "CLK"))
-				components[i] = new CLK(board, componentInputs, componentOutputs, v8Component->Get(Nan::New("CLK_Speed").ToLocalChecked())->Int32Value(Nan::GetCurrentContext()).FromJust());
+			
 			if (!strcmp(componentType, "AND"))
 				components[i] = new AND(board, componentInputs, componentOutputs);
+			if (!strcmp(componentType, "BUTTON"))
+				components[i] = new BUTTON(board, componentInputs, componentOutputs);
+			if (!strcmp(componentType, "CLK"))
+				components[i] = new CLK(board, componentInputs, componentOutputs, v8Component->Get(Nan::New("CLK_Speed").ToLocalChecked())->Int32Value(Nan::GetCurrentContext()).FromJust());
+			if (!strcmp(componentType, "DELAY"))
+				components[i] = new DELAY(board, componentInputs, componentOutputs);
+			if (!strcmp(componentType, "NOT"))
+				components[i] = new NOT(board, componentInputs, componentOutputs);
+			if (!strcmp(componentType, "OR"))
+				components[i] = new OR(board, componentInputs, componentOutputs);
+			if (!strcmp(componentType, "SWITCH"))
+				components[i] = new SWITCH(board, componentInputs, componentOutputs);
+			if (!strcmp(componentType, "XOR"))
+				components[i] = new XOR(board, componentInputs, componentOutputs);
 
 			if (components[i] == nullptr) {
 				Nan::ThrowTypeError((std::string("Error: Component '") + std::string(componentType) + std::string("' (") + std::to_string(i) + std::string(") is of no valid type!")).c_str());
@@ -172,12 +192,53 @@ void getBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	args.GetReturnValue().Set(v8Board);
 }
 
+void triggerInput(const Nan::FunctionCallbackInfo<v8::Value>& args) {
+	if (args.Length() != 4 || !args[0]->IsName() || !args[1]->IsNumber() || !args[2]->IsNumber() || !args[3]->IsNumber()) {
+		Nan::ThrowTypeError("Usage: newBoards([String]identifier, [Number]componentIndex, [Number]inputIndex, [Number]inputEvent");
+		return;
+	}
+	std::string identifier(*Nan::Utf8String(args[0]));
+
+	if (!boards.count(identifier)) {
+		Nan::ThrowTypeError("Board not found!");
+		return;
+	}
+	Board* board = boards[identifier];
+
+	int componentIndex = args[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+	if (componentIndex > board->componentCount || componentIndex < 0) {
+		Nan::ThrowTypeError("Component not found!");
+		return;
+	}
+	
+	UserInputComponent* userInputComponent = (UserInputComponent*)(board->getComponents()[componentIndex]);
+	if (userInputComponent == nullptr) {
+		Nan::ThrowTypeError("Component is not an user input!");
+		return;
+	}
+
+	int inputIndex = args[2]->Int32Value(Nan::GetCurrentContext()).FromJust();
+	if (inputIndex < 0 || inputIndex > userInputComponent->getUserInputCount()) {
+		Nan::ThrowTypeError("InputIndex is out of range!");
+		return;
+	}
+
+	UserInputComponent::InputEvent inputEvent = static_cast<UserInputComponent::InputEvent>(args[3]->Int32Value(Nan::GetCurrentContext()).FromJust());
+	if (inputEvent < 0 || inputEvent > 1) {
+		Nan::ThrowTypeError("InputEvent invalid!");
+		return;
+	}
+
+	userInputComponent->triggerUserInput(inputIndex, inputEvent);
+}
+
 void Initialize(v8::Local<v8::Object> exports) {
 	exports->Set(Nan::New("newBoard").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(newBoard)->GetFunction());
 	exports->Set(Nan::New("startBoard").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(start)->GetFunction());
 	exports->Set(Nan::New("stopBoard").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(stop)->GetFunction());
 	exports->Set(Nan::New("getBoardStatus").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(getStatus)->GetFunction());
 	exports->Set(Nan::New("getBoard").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(getBoard)->GetFunction());
+	exports->Set(Nan::New("triggerInput").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(triggerInput)->GetFunction());
 }
 
 NODE_MODULE(NODE_GYP_MODULE_NAME, Initialize)

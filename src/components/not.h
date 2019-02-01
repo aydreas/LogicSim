@@ -11,13 +11,11 @@ public:
 	NOT(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs) { }
 	NOT(Board* board, Link** inputs, Link** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) { }
 
-	int getInputCount()
-	{
+	int getInputCount() {
 		return 1;
 	}
 
-	int getOutputCount()
-	{
+	int getOutputCount() {
 		return 1;
 	}
 
