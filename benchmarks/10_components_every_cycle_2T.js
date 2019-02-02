@@ -13,7 +13,7 @@ components.push({
     ]
 });
 
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 10; i++) {
     components.push({
         "type": "AND",
         "inputs": [
@@ -27,7 +27,7 @@ for (let i = 0; i < 1000; i++) {
 
 logicsim.newBoard("testBoard", {
 	"links" : 3,
-    "threads": 1,
+    "threads": 2,
     "components": components
 });
 logicsim.startBoard("testBoard");

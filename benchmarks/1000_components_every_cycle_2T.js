@@ -36,6 +36,6 @@ run();
 
 async function run() {
     await new Promise(resolve => setTimeout(resolve, 3000));
-    logicsim.stopBoard();
+    logicsim.stopBoard("testBoard");
     console.log(logicsim.getBoardStatus("testBoard").currentSpeed);
 }
