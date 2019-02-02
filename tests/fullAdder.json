@@ -1,5 +1,5 @@
 {
-	"simulationTime": 1000,
+	"ticks": 3,
 	"expected": {
 		"links": [
 			false, true, true, false, true, false, false, true

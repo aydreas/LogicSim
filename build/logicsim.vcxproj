@@ -16,7 +16,7 @@
     <RootNamespace>logicsim</RootNamespace>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
   <PropertyGroup Label="Configuration">
@@ -48,7 +48,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\11.8.0\include\node;C:\Users\Andreas\.node-gyp\11.8.0\src;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\uv\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\zlib;C:\Users\Andreas\.node-gyp\11.8.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\10.14.2\include\node;C:\Users\Andreas\.node-gyp\10.14.2\src;C:\Users\Andreas\.node-gyp\10.14.2\deps\openssl\config;C:\Users\Andreas\.node-gyp\10.14.2\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\10.14.2\deps\uv\include;C:\Users\Andreas\.node-gyp\10.14.2\deps\zlib;C:\Users\Andreas\.node-gyp\10.14.2\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <BufferSecurityCheck>true</BufferSecurityCheck>
@@ -69,7 +69,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\Andreas\.node-gyp\11.8.0\x64\node.lib&quot;</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\Andreas\.node-gyp\10.14.2\x64\node.lib&quot;</AdditionalDependencies>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <AllowIsolation>true</AllowIsolation>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -84,13 +84,13 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\11.8.0\include\node;C:\Users\Andreas\.node-gyp\11.8.0\src;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\uv\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\zlib;C:\Users\Andreas\.node-gyp\11.8.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\10.14.2\include\node;C:\Users\Andreas\.node-gyp\10.14.2\src;C:\Users\Andreas\.node-gyp\10.14.2\deps\openssl\config;C:\Users\Andreas\.node-gyp\10.14.2\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\10.14.2\deps\uv\include;C:\Users\Andreas\.node-gyp\10.14.2\deps\zlib;C:\Users\Andreas\.node-gyp\10.14.2\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=logicsim;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;BUILDING_NODE_EXTENSION;DEBUG;_DEBUG;V8_ENABLE_CHECKS;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\11.8.0\include\node;C:\Users\Andreas\.node-gyp\11.8.0\src;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\uv\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\zlib;C:\Users\Andreas\.node-gyp\11.8.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\10.14.2\include\node;C:\Users\Andreas\.node-gyp\10.14.2\src;C:\Users\Andreas\.node-gyp\10.14.2\deps\openssl\config;C:\Users\Andreas\.node-gyp\10.14.2\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\10.14.2\deps\uv\include;C:\Users\Andreas\.node-gyp\10.14.2\deps\zlib;C:\Users\Andreas\.node-gyp\10.14.2\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <CompileAsWinRT>false</CompileAsWinRT>
@@ -118,7 +118,7 @@
       <AdditionalOptions>/LTCG:INCREMENTAL %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\Andreas\.node-gyp\11.8.0\x64\node.lib&quot;</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\Users\Andreas\.node-gyp\10.14.2\x64\node.lib&quot;</AdditionalDependencies>
       <AdditionalOptions>/ignore:4199 /LTCG:INCREMENTAL %(AdditionalOptions)</AdditionalOptions>
       <AllowIsolation>true</AllowIsolation>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -135,7 +135,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\11.8.0\include\node;C:\Users\Andreas\.node-gyp\11.8.0\src;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\config;C:\Users\Andreas\.node-gyp\11.8.0\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\uv\include;C:\Users\Andreas\.node-gyp\11.8.0\deps\zlib;C:\Users\Andreas\.node-gyp\11.8.0\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Andreas\.node-gyp\10.14.2\include\node;C:\Users\Andreas\.node-gyp\10.14.2\src;C:\Users\Andreas\.node-gyp\10.14.2\deps\openssl\config;C:\Users\Andreas\.node-gyp\10.14.2\deps\openssl\openssl\include;C:\Users\Andreas\.node-gyp\10.14.2\deps\uv\include;C:\Users\Andreas\.node-gyp\10.14.2\deps\zlib;C:\Users\Andreas\.node-gyp\10.14.2\deps\v8\include;..\src;..\src\components;..\node_modules\nan;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=logicsim;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;BUILDING_NODE_EXTENSION;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>

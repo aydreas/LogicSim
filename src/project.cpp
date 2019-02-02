@@ -23,7 +23,7 @@ std::map<std::string, Board*> boards;
 
 void newBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	if (args.Length() != 2 || !args[0]->IsName() || !args[1]->IsObject()) {
-		Nan::ThrowTypeError("Usage: newBoards([string]identifier, [object]data");
+		Nan::ThrowSyntaxError("Usage: newBoards([string]identifier, [object]data");
 		return;
 	}
 
@@ -37,7 +37,7 @@ void newBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	v8::Local<v8::Object> obj = args[1]->ToObject(Nan::GetCurrentContext()).ToLocalChecked();
 
 	if (boards.count(identifier)) {
-		Nan::ThrowTypeError("Identifier already used!");
+		Nan::ThrowError("Identifier already used!");
 		return;
 	}
 
@@ -75,22 +75,21 @@ void newBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 			
 			if (!strcmp(componentType, "AND"))
 				components[i] = new AND(board, componentInputs, componentOutputs);
-			if (!strcmp(componentType, "BUTTON"))
+			else if (!strcmp(componentType, "BUTTON"))
 				components[i] = new BUTTON(board, componentInputs, componentOutputs);
-			if (!strcmp(componentType, "CLK"))
+			else if (!strcmp(componentType, "CLK"))
 				components[i] = new CLK(board, componentInputs, componentOutputs, v8Component->Get(Nan::New("CLK_Speed").ToLocalChecked())->Int32Value(Nan::GetCurrentContext()).FromJust());
-			if (!strcmp(componentType, "DELAY"))
+			else if (!strcmp(componentType, "DELAY"))
 				components[i] = new DELAY(board, componentInputs, componentOutputs);
-			if (!strcmp(componentType, "NOT"))
+			else if (!strcmp(componentType, "NOT"))
 				components[i] = new NOT(board, componentInputs, componentOutputs);
-			if (!strcmp(componentType, "OR"))
+			else if (!strcmp(componentType, "OR"))
 				components[i] = new OR(board, componentInputs, componentOutputs);
-			if (!strcmp(componentType, "SWITCH"))
+			else if (!strcmp(componentType, "SWITCH"))
 				components[i] = new SWITCH(board, componentInputs, componentOutputs);
-			if (!strcmp(componentType, "XOR"))
+			else if (!strcmp(componentType, "XOR"))
 				components[i] = new XOR(board, componentInputs, componentOutputs);
-
-			if (components[i] == nullptr) {
+			else {
 				Nan::ThrowTypeError((std::string("Error: Component '") + std::string(componentType) + std::string("' (") + std::to_string(i) + std::string(") is of no valid type!")).c_str());
 				return;
 			}
@@ -102,10 +101,15 @@ void newBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 }
 
 void start(const Nan::FunctionCallbackInfo<v8::Value>& args) {
-	if (args.Length() != 1 && !args[0]->IsName()) {
-		Nan::ThrowTypeError("No identifier specified!");
+	if (args.Length() < 1 || args.Length() > 2 || !args[0]->IsName()) {
+		Nan::ThrowSyntaxError("No identifier specified!");
 		return;
 	}
+	if (args.Length() > 1 && !args[1]->IsNumber()) {
+		Nan::ThrowTypeError("2. argument must be a number!");
+		return;
+	}
+
 	std::string identifier(*Nan::Utf8String(args[0]));
 
 	if (!boards.count(identifier)) {
@@ -113,12 +117,15 @@ void start(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 		return;
 	}
 
-	boards[identifier]->start();
+	if (args.Length() > 1)
+		boards[identifier]->start(args[1]->Int32Value(Nan::GetCurrentContext()).FromJust());
+	else
+		boards[identifier]->start();
 }
 
 void stop(const Nan::FunctionCallbackInfo<v8::Value>& args) {
-	if (args.Length() != 1 && !args[0]->IsName()) {
-		Nan::ThrowTypeError("No identifier specified!");
+	if (args.Length() != 1 || !args[0]->IsName()) {
+		Nan::ThrowSyntaxError("No identifier specified!");
 		return;
 	}
 	std::string identifier(*Nan::Utf8String(args[0]));
@@ -132,8 +139,8 @@ void stop(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 }
 
 void getStatus(const Nan::FunctionCallbackInfo<v8::Value>& args) {
-	if (args.Length() != 1 && !args[0]->IsName()) {
-		Nan::ThrowTypeError("No identifier specified!");
+	if (args.Length() != 1 || !args[0]->IsName()) {
+		Nan::ThrowSyntaxError("No identifier specified!");
 		return;
 	}
 	std::string identifier(*Nan::Utf8String(args[0]));
@@ -147,18 +154,18 @@ void getStatus(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	v8::Local<v8::Object> obj = Nan::New<v8::Object>();
 	
 	obj->Set(Nan::New("currentSpeed").ToLocalChecked(), Nan::New((double)board->currentSpeed));
-	obj->Set(Nan::New("currentStatus").ToLocalChecked(), Nan::New(board->getCurrentState()));
+	obj->Set(Nan::New("currentState").ToLocalChecked(), Nan::New(board->getCurrentState()));
 	obj->Set(Nan::New("threadCount").ToLocalChecked(), Nan::New(board->getThreadCount()));
 	obj->Set(Nan::New("componentCount").ToLocalChecked(), Nan::New((unsigned int)board->componentCount));
-	obj->Set(Nan::New("manualClock").ToLocalChecked(), Nan::New(board->getManualClock()));
+	obj->Set(Nan::New("linkCount").ToLocalChecked(), Nan::New((unsigned int)board->linkCount));
 	obj->Set(Nan::New("tick").ToLocalChecked(), Nan::New((double)board->getCurrentTick()));
 
 	args.GetReturnValue().Set(obj);
 }
 
 void getBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
-	if (args.Length() != 1 && !args[0]->IsName()) {
-		Nan::ThrowTypeError("No identifier specified!");
+	if (args.Length() != 1 || !args[0]->IsName()) {
+		Nan::ThrowSyntaxError("No identifier specified!");
 		return;
 	}
 	std::string identifier(*Nan::Utf8String(args[0]));
@@ -194,7 +201,7 @@ void getBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 
 void triggerInput(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	if (args.Length() != 4 || !args[0]->IsName() || !args[1]->IsNumber() || !args[2]->IsNumber() || !args[3]->IsNumber()) {
-		Nan::ThrowTypeError("Usage: newBoards([String]identifier, [Number]componentIndex, [Number]inputIndex, [Number]inputEvent");
+		Nan::ThrowSyntaxError("Usage: newBoards([String]identifier, [Number]componentIndex, [Number]inputIndex, [Number]inputEvent");
 		return;
 	}
 	std::string identifier(*Nan::Utf8String(args[0]));
