@@ -17,6 +17,9 @@ public:
 	Output** outputs;
 protected:
 	Component(Board* board, Link** inputs, Link** outputs, int inputCount, int outputCount);
-	Component(Board* board, Input** inputs, Output** outputs);
+	Component(Board* board, Input** inputs, Output** outputs, int inputCount, int outputCount);
 	Board* board;
+private:
+	int inputCount;
+	int outputCount;
 };

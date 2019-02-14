@@ -9,7 +9,7 @@ class SWITCH :
 	public UserInputComponent
 {
 public:
-	SWITCH(Board* board, Input** inputs, Output** outputs) : UserInputComponent(board, inputs, outputs) { }
+	SWITCH(Board* board, Input** inputs, Output** outputs) : UserInputComponent(board, inputs, outputs, getInputCount(), getOutputCount()) { }
 	SWITCH(Board* board, Link** inputs, Link** outputs) : UserInputComponent(board, inputs, outputs, getInputCount(), getOutputCount()) { }
 
 	int getInputCount() {

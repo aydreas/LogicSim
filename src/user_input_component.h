@@ -10,5 +10,5 @@ public:
 	virtual int getUserInputCount() = 0;
 protected:
 	UserInputComponent(Board* board, Link** inputs, Link** outputs, int inputCount, int outputCount) : Component(board, inputs, outputs, inputCount, outputCount) { }
-	UserInputComponent(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs) { }
+	UserInputComponent(Board* board, Input** inputs, Output** outputs, int inputCount, int outputCount) : Component(board, inputs, outputs, inputCount, outputCount) { }
 };

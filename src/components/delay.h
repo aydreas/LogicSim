@@ -8,7 +8,7 @@ class DELAY :
 	public Component
 {
 public:
-	DELAY(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs) { }
+	DELAY(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) { }
 	DELAY(Board* board, Link** inputs, Link** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) { }
 
 	int getInputCount() {

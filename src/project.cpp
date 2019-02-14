@@ -100,6 +100,22 @@ void newBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	board->init(components, links, componentCount, linkCount, (int)threadCount);
 }
 
+void removeBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
+	if (args.Length() != 1 || !args[0]->IsName()) {
+		Nan::ThrowSyntaxError("No identifier specified!");
+		return;
+	}
+	std::string identifier(*Nan::Utf8String(args[0]));
+
+	if (!boards.count(identifier)) {
+		Nan::ThrowTypeError("Board not found!");
+		return;
+	}
+
+	delete boards[identifier];
+	boards.erase(identifier);
+}
+
 void start(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	if (args.Length() < 1 || args.Length() > 2 || !args[0]->IsName()) {
 		Nan::ThrowSyntaxError("No identifier specified!");
@@ -241,6 +257,7 @@ void triggerInput(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 
 void Initialize(v8::Local<v8::Object> exports) {
 	exports->Set(Nan::New("newBoard").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(newBoard)->GetFunction());
+	exports->Set(Nan::New("removeBoard").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(removeBoard)->GetFunction());
 	exports->Set(Nan::New("startBoard").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(start)->GetFunction());
 	exports->Set(Nan::New("stopBoard").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(stop)->GetFunction());
 	exports->Set(Nan::New("getBoardStatus").ToLocalChecked(), Nan::New<v8::FunctionTemplate>(getStatus)->GetFunction());
