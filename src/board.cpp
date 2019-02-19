@@ -8,8 +8,31 @@
 #include "events.h"
 #include "output.h"
 
-Board::Board()
-{
+Board::Board() {
+}
+
+Board::~Board() {
+	stop();
+
+	for (int i = 0; i < componentCount; i++) {
+		delete components[i];
+	}
+	delete[] components;
+
+	for (int i = 0; i < linkCount; i++) {
+		delete links[i];
+	}
+	delete[] links;
+
+	for (int i = 0; i < threadCount; i++) {
+		delete threads[i];
+	}
+	delete[] threads;
+
+	delete barrier;
+	delete[] buffer1;
+	delete[] buffer2;
+	delete[] buffer3;
 }
 
 void Board::init(Component** components, Link** links, int componentCount, int linkCount)

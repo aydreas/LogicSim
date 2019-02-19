@@ -12,11 +12,11 @@ class CLK :
 public:
 	int speed = 1;
 
-	CLK(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs) {
+	CLK(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) {
 		outputChange();
 	}
 
-	CLK(Board* board, Input** inputs, Output** outputs, int speed) : Component(board, inputs, outputs) {
+	CLK(Board* board, Input** inputs, Output** outputs, int speed) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) {
 		this->speed = speed;
 		outputChange();
 	}

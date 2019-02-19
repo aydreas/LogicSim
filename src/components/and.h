@@ -8,7 +8,7 @@ class AND :
 	public Component
 {
 public:
-	AND(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs) { }
+	AND(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) { }
 	AND(Board* board, Link** inputs, Link** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) { }
 
 	int getInputCount() {

@@ -8,7 +8,7 @@ class XOR :
 	public Component
 {
 public:
-	XOR(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs) { }
+	XOR(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) { }
 	XOR(Board* board, Link** inputs, Link** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) { }
 
 	int getInputCount() {

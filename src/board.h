@@ -12,10 +12,9 @@ class Board
 {
 public:
 	Board();
+	~Board();
 	void init(Component** components, Link** links, int componentCount, int linkCount);
 	void init(Component** components, Link** links, int componentCount, int linkCount, int threadCount);
-	void init(Component** components, Link** links, int componentCount, int linkCount, bool manualClock);
-	void init(Component** components, Link** links, int componentCount, int linkCount, int threadCount, bool manualClock);
 	unsigned int getNextComponentIndex();
 	bool* readBuffer = nullptr;
 	bool* writeBuffer = nullptr;
