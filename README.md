@@ -13,8 +13,12 @@ Download the contents of the repository, open the command line in that directory
 ```
 git clone 'https://github.com/yEinFallsLos/LogicSim.git' && cd ./LogicSim && npm install
 ```
+alternatively, you can install it using npm:
+```
+npm install logicsim -g
+```
 ## Usage
-Import the module in your Node.JS Script: ```const logicsim = require('./index');```
+Import the module in your Node.JS Script: ```const logicsim = require('./index');``` (if you installed it using npm, use ```const logicsim = require('logicsim');```)
 ### Functions
 Create a new Board:
 ```logicsim.newBoard("*unique identifier for your board*", *object with the contents of the board, see below for an example*);```
