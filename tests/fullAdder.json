@@ -1,0 +1,89 @@
+{
+	"ticks": 3,
+	"expected": {
+		"links": [
+			false, true, true, false, true, false, false, true
+		],
+		"components": [
+			[ false ], [ true ], [ true ], [ false ], [ true ], [ false ], [ false ], [ true ]
+		]
+	},
+	"inputTriggers": [
+		1, 2
+	],
+	"board": {
+		"links": 8,
+		"threads": 1,
+		"components": [
+			{
+				"type": "SWITCH",
+				"inputs": [
+				],
+				"outputs": [
+					0
+				]
+			},
+			{
+				"type": "SWITCH",
+				"inputs": [
+				],
+				"outputs": [
+					1
+				]
+			},
+			{
+				"type": "SWITCH",
+				"inputs": [
+				],
+				"outputs": [
+					2
+				]
+			},
+			{
+				"type": "XOR",
+				"inputs": [
+					1, 2
+				],
+				"outputs": [
+					3
+				]
+			},
+			{
+				"type": "AND",
+				"inputs": [
+					1, 2
+				],
+				"outputs": [
+					4
+				]
+			},
+			{
+				"type": "XOR",
+				"inputs": [
+					0, 3
+				],
+				"outputs": [
+					5
+				]
+			},
+			{
+				"type": "AND",
+				"inputs": [
+					0, 3
+				],
+				"outputs": [
+					6
+				]
+			},
+			{
+				"type": "OR",
+				"inputs": [
+					4, 6
+				],
+				"outputs": [
+					7
+				]
+			}
+		]
+	}
+}

@@ -4,17 +4,22 @@
 #include "link.h"
 #include "board.h"
 #include <memory>
+#include <cstring>
 
-Component::Component(Board* board, Input** inputs, Output** outputs) :
+Component::Component(Board* board, Input** inputs, Output** outputs, int inputCount, int outputCount) :
 	board(board),
 	inputs(inputs),
-	outputs(outputs)
+	outputs(outputs),
+	inputCount(inputCount),
+	outputCount(outputCount)
 {
 	componentIndex = board->getNextComponentIndex();
 }
 
 Component::Component(Board* board, Link** inputs, Link** outputs, int inputCount, int outputCount) :
-	board(board)
+	board(board),
+	inputCount(inputCount),
+	outputCount(outputCount)
 {
 	this->inputs = new Input*[inputCount];
 	for (int i = 0; i < inputCount; i++) {
@@ -47,6 +52,13 @@ Component::Component(Board* board, Link** inputs, Link** outputs, int inputCount
 	componentIndex = board->getNextComponentIndex();
 }
 
-Component::~Component()
-{
+Component::~Component() {
+	for (int i = 0; i < inputCount; i++) {
+		delete inputs[i];
+	}
+	for (int i = 0; i < outputCount; i++) {
+		delete outputs[i];
+	}
+	delete[] inputs;
+	delete[] outputs;
 }

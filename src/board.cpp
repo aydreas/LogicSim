@@ -8,26 +8,39 @@
 #include "events.h"
 #include "output.h"
 
-Board::Board()
-{
+Board::Board() {
+}
+
+Board::~Board() {
+	stop();
+
+	for (int i = 0; i < componentCount; i++) {
+		delete components[i];
+	}
+	delete[] components;
+
+	for (int i = 0; i < linkCount; i++) {
+		delete links[i];
+	}
+	delete[] links;
+
+	for (int i = 0; i < threadCount; i++) {
+		delete threads[i];
+	}
+	delete[] threads;
+
+	delete barrier;
+	delete[] buffer1;
+	delete[] buffer2;
+	delete[] buffer3;
 }
 
 void Board::init(Component** components, Link** links, int componentCount, int linkCount)
 {
-	Board::init(components, links, componentCount, linkCount, 1, false);
-}
-
-void Board::init(Component** components, Link** links, int componentCount, int linkCount, bool manualClock)
-{
-	Board::init(components, links, componentCount, linkCount, 1, manualClock);
+	Board::init(components, links, componentCount, linkCount, 1);
 }
 
 void Board::init(Component** components, Link** links, int componentCount, int linkCount, int threadCount)
-{
-	Board::init(components, links, componentCount, linkCount, threadCount, false);
-}
-
-void Board::init(Component** components, Link** links, int componentCount, int linkCount, int threadCount, bool manualClock)
 {
 	if (currentState != Board::Uninitialized)
 		return;
@@ -35,7 +48,6 @@ void Board::init(Component** components, Link** links, int componentCount, int l
 	this->components = components;
 	this->links = links;
 	this->threadCount = threadCount;
-	this->manualClock = manualClock;
 	this->componentCount = componentCount;
 	this->linkCount = linkCount;
 
@@ -52,12 +64,7 @@ void Board::init(Component** components, Link** links, int componentCount, int l
 	threads = new std::thread*[threadCount] { nullptr };
 	lastCapture = std::chrono::high_resolution_clock::now();
 
-	barrier = new SpinlockBarrier(threadCount, [this]() {
-		if (currentState == Board::Stopping) {
-			currentState = Board::Stopped;
-			return;
-		}
-		
+	barrier = new SpinlockBarrier(threadCount, [this]() {	
 		tickEvent.emit(nullptr, Events::EventArgs());
 
 		bool* readPointer(readBuffer);
@@ -66,16 +73,17 @@ void Board::init(Component** components, Link** links, int componentCount, int l
 		writeBuffer = wipeBuffer;
 		wipeBuffer = readPointer;
 
-		if (getManualClock()) {
-			//TODO: wait for confirmation
-		}
-
 		tick++;
 		long long diff = (std::chrono::high_resolution_clock::now() - lastCapture).count();
 		if (diff > 10e8) {
 			currentSpeed = ((tick - lastCaptureTick) * (unsigned long)10e8) / diff;
 			lastCapture = std::chrono::high_resolution_clock::now();
 			lastCaptureTick = tick;
+		}
+
+		if (!--cyclesLeft || currentState == Board::Stopping) {
+			currentState = Board::Stopped;
+			return;
 		}
 	}, 2);
 }
@@ -98,10 +106,6 @@ Link** Board::getLinks()
 	return links;
 }
 
-bool Board::getManualClock() {
-	return manualClock;
-}
-
 Board::State Board::getCurrentState() {
 	return currentState;
 }
@@ -122,11 +126,17 @@ void Board::stop() {
 }
 
 void Board::start() {
+	start(UINT64_MAX);
+}
+
+void Board::start(unsigned long long cyclesLeft)
+{
 	if (currentState != Board::Stopped)
 		return;
 
+	this->cyclesLeft = cyclesLeft;
 	for (int i = 0; i < threadCount; i++) {
-		if(threads[i] != nullptr)
+		if (threads[i] != nullptr)
 			delete threads[i];
 
 		currentState = Board::Running;

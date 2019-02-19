@@ -12,10 +12,9 @@ class Board
 {
 public:
 	Board();
+	~Board();
 	void init(Component** components, Link** links, int componentCount, int linkCount);
 	void init(Component** components, Link** links, int componentCount, int linkCount, int threadCount);
-	void init(Component** components, Link** links, int componentCount, int linkCount, bool manualClock);
-	void init(Component** components, Link** links, int componentCount, int linkCount, int threadCount, bool manualClock);
 	unsigned int getNextComponentIndex();
 	bool* readBuffer = nullptr;
 	bool* writeBuffer = nullptr;
@@ -26,13 +25,13 @@ public:
 	int getThreadCount();
 	Component** getComponents();
 	Link** getLinks();
-	bool getManualClock();
 	State getCurrentState();
 	unsigned long long int getCurrentTick();
 	unsigned long long currentSpeed = 0;
 	Events::Event<> tickEvent;
 	void stop();
 	void start();
+	void start(unsigned long long cyclesLeft);
 	
 private:
 	bool* buffer1 = nullptr;
@@ -41,7 +40,6 @@ private:
 	int threadCount = 1;
 	Component** components = nullptr;
 	Link** links = nullptr;
-	bool manualClock = false;
 	State currentState = Board::Uninitialized;
 	unsigned long long int tick = 0;
 	std::thread** threads = nullptr;
@@ -49,5 +47,6 @@ private:
 	std::chrono::high_resolution_clock::time_point lastCapture;
 	unsigned long long int lastCaptureTick = 0;
 	unsigned int componentIndex = 0;
+	unsigned long long cyclesLeft = 0;
 };
 

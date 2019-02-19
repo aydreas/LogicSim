@@ -1,4 +1,4 @@
-const logicsim = require('./index');
+const logicsim = require('../index');
 
 var components = [];
 
@@ -13,7 +13,7 @@ components.push({
     ]
 });
 
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 10; i++) {
     components.push({
         "type": "AND",
         "inputs": [
@@ -26,12 +26,16 @@ for (let i = 0; i < 1000; i++) {
 }
 
 logicsim.newBoard("testBoard", {
-    "links": 3,
-    "threads": 1,
+	"links" : 3,
+    "threads": 4,
     "components": components
 });
 logicsim.startBoard("testBoard");
 
-setInterval(() => {
-    console.log(logicsim.getBoardStatus("testBoard"));
-}, 1000);
+run();
+
+async function run() {
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    logicsim.stopBoard("testBoard");
+    console.log(logicsim.getBoardStatus("testBoard").currentSpeed);
+}

@@ -1,5 +1,6 @@
 #include "link.h"
 #include "output.h"
+#include "input.h"
 
 Link::Link(Board* board) :
 	board(board),
@@ -21,6 +22,7 @@ Link::Link(Board* board, Input** inputs, Output** outputs, int inputCount, int o
 {
 }
 
-Link::~Link()
-{
+Link::~Link() {
+	delete[] inputs;
+	delete[] outputs;
 }
