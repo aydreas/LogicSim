@@ -6,7 +6,8 @@
   "bugs": {
     "url": "https://github.com/yEinFallsLos/LogicSim/issues"
   },
-  "main": "index.js",
+  "main": "./index.js",
+  "typings": "./index.d.ts",
   "scripts": {
     "build": "node-gyp build",
     "install": "node-gyp rebuild",

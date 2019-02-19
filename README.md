@@ -18,7 +18,9 @@ alternatively, you can install it using npm:
 npm install logicsim -g
 ```
 ## Usage
-Import the module in your Node.JS Script: ```const logicsim = require('./index');``` (if you installed it using npm, use ```const logicsim = require('logicsim');```)
+Import the module in your Node.JS Script: ```const logicsim = require('./index').logicsim;``` (if you installed it using npm, use ```const logicsim = require('logicsim').logicsim;```)
+
+If you are using TypeScript, import the module like this ```import {BoardObject, logicsim} from "logicsim";```
 ### Functions
 | Function  | Decription |
 | --- | --- |
