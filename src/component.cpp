@@ -53,32 +53,11 @@ Component::Component(Board* board, Link** inputs, Link** outputs, int inputCount
 
 Component::~Component() {
 	for (int i = 0; i < inputCount; i++) {
-		Input** newInputs = new Input*[inputs[i]->getLink()->inputCount - 1];
-		for (int j = 0, k = 0; j < inputs[i]->getLink()->inputCount - 1; j++, k++) {
-			if (inputs[i]->getLink()->inputs[k] == inputs[i])
-				k++;
-			newInputs[j] = inputs[i]->getLink()->inputs[k];
-		}
-		delete[] inputs[i]->getLink()->inputs;
-		inputs[i]->getLink()->inputCount--;
-		std::memcpy(newInputs, inputs[i]->getLink()->inputs, inputs[i]->getLink()->inputCount * sizeof(Input*));
-
 		delete inputs[i];
 	}
-	delete[] inputs;
-
 	for (int i = 0; i < outputCount; i++) {
-		Output** newOutputs = new Output*[outputs[i]->getLink()->outputCount - 1];
-		for (int j = 0, k = 0; j < outputs[i]->getLink()->outputCount - 1; j++, k++) {
-			if (outputs[i]->getLink()->outputs[k] == outputs[i])
-				k++;
-			newOutputs[j] = outputs[i]->getLink()->outputs[k];
-		}
-		delete[] outputs[i]->getLink()->outputs;
-		outputs[i]->getLink()->outputCount--;
-		std::memcpy(newOutputs, outputs[i]->getLink()->outputs, outputs[i]->getLink()->outputCount * sizeof(Output*));
-
 		delete outputs[i];
 	}
+	delete[] inputs;
 	delete[] outputs;
 }
