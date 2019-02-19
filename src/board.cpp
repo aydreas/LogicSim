@@ -14,12 +14,12 @@ Board::Board() {
 Board::~Board() {
 	stop();
 
-	for (int i = 0; i < componentCount; i++) {
+	for (unsigned int i = 0; i < componentCount; i++) {
 		delete components[i];
 	}
 	delete[] components;
 
-	for (int i = 0; i < linkCount; i++) {
+	for (unsigned int i = 0; i < linkCount; i++) {
 		delete links[i];
 	}
 	delete[] links;
@@ -145,14 +145,14 @@ void Board::start(unsigned long long cyclesLeft)
 				if (currentState == Board::Stopped)
 					return;
 
-				for (int i = id; i < componentCount; i += threadCount) {
+				for (unsigned int i = id; i < componentCount; i += threadCount) {
 					if (readBuffer[i])
 						components[i]->compute();
 					wipeBuffer[i] = false;
 				}
 				barrier->wait();
 
-				for (int i = id; i < linkCount; i += threadCount) {
+				for (unsigned int i = id; i < linkCount; i += threadCount) {
 					links[i]->powered = std::any_of(links[i]->outputs, links[i]->outputs + links[i]->outputCount, [](Output* x) { return x->getPowered(); });
 				}
 				barrier->wait();

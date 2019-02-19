@@ -53,6 +53,9 @@ void newBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 			links[i] = new Link(board);
 		}
 	}
+	else {
+		links = new Link*[0];
+	}
 
 	if (obj->Get(Nan::New("components").ToLocalChecked())->IsArray()) {
 		v8::Local<v8::Array> v8Components = v8::Local<v8::Array>::Cast(obj->Get(Nan::New("components").ToLocalChecked()));
@@ -94,6 +97,9 @@ void newBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 				return;
 			}
 		}
+	}
+	else {
+		components = new Component*[0];
 	}
 
 	boards[identifier] = board;
@@ -194,7 +200,7 @@ void getBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	Board* board = boards[identifier];
 	v8::Local<v8::Array> v8Components = Nan::New<v8::Array>();
 
-	for (int i = 0; i < board->componentCount; i++) {
+	for (unsigned int i = 0; i < board->componentCount; i++) {
 		Component* component = board->getComponents()[i];
 		v8::Local<v8::Array> v8Component = Nan::New<v8::Array>();
 
@@ -205,7 +211,7 @@ void getBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	}
 
 	v8::Local<v8::Array> v8Links = Nan::New<v8::Array>();
-	for (int i = 0; i < board->linkCount; i++) {
+	for (unsigned int i = 0; i < board->linkCount; i++) {
 		v8Links->Set(i, Nan::New(board->getLinks()[i]->powered));
 	}
 
@@ -228,8 +234,8 @@ void triggerInput(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 	}
 	Board* board = boards[identifier];
 
-	int componentIndex = args[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
-	if (componentIndex > board->componentCount || componentIndex < 0) {
+	unsigned int componentIndex = args[1]->Int32Value(Nan::GetCurrentContext()).FromJust();
+	if (componentIndex > board->componentCount) {
 		Nan::ThrowTypeError("Component not found!");
 		return;
 	}
