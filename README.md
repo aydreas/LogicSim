@@ -20,24 +20,14 @@ npm install logicsim -g
 ## Usage
 Import the module in your Node.JS Script: ```const logicsim = require('./index');``` (if you installed it using npm, use ```const logicsim = require('logicsim');```)
 ### Functions
-Create a new Board:
-```logicsim.newBoard("*unique identifier for your board*", *object with the contents of the board, see below for an example*);```
-
-Start your Board:
-```logicsim.startBoard("*identifier*" [, *amount of ticks the simulation will run, leave out for endless simulation*]);```
-
-Stop your Board, if simulation is running:
-```logicsim.stopBoard("*identifier*");```
-
-Get the current Status of the Board, like passed ticks, current execution state or current simulation speed:
-```logicsim.getBoardStatus("*identifier*");```
-
-Get the components and their current state of the board:
-```logicsim.getBoard("*identifier*");```
-
-Trigger an input element on the board:
-```logicsim.triggerInput("*identifier*", *index of component to trigger*, *index of input on component*, *input event (0 = down, 1 = up)*)```
-
+| Function  | Decription |
+| --- | --- |
+| ```logicsim.newBoard("*unique identifier for your board*", *object with the contents of the board, see below for an example*);```  | Creates a new Board |
+| ```logicsim.startBoard("*identifier*" [, *amount of ticks the simulation will run, leave out for endless simulation*]);``` | Start your Board |
+| ```logicsim.stopBoard("*identifier*");``` | Stop your Board, if simulation is running |
+| ```logicsim.getBoardStatus("*identifier*");``` | Get the current Status of the Board, like passed ticks, current execution state or current simulation speed |
+| ```logicsim.getBoard("*identifier*");``` | Get the components and their current state of the board |
+| ```logicsim.triggerInput("*identifier*", *index of component to trigger*, *index of input on component*, *input event (0 = down, 1 = up)*)``` | Trigger an input element on the board |
 ### Sample Board Object:
 ```
 {
