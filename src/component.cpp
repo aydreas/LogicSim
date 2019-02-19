@@ -4,6 +4,7 @@
 #include "link.h"
 #include "board.h"
 #include <memory>
+#include <cstring>
 
 Component::Component(Board* board, Input** inputs, Output** outputs, int inputCount, int outputCount) :
 	board(board),
@@ -32,7 +33,7 @@ Component::Component(Board* board, Link** inputs, Link** outputs, int inputCount
 
 	for (int i = 0; i < inputCount; i++) {
 		Input** newInputs = new Input*[inputs[i]->inputCount + 1];
-		memcpy(newInputs, inputs[i]->inputs, inputs[i]->inputCount * sizeof(Input*));
+		std::memcpy(newInputs, inputs[i]->inputs, inputs[i]->inputCount * sizeof(Input*));
 		newInputs[inputs[i]->inputCount] = this->inputs[i];
 		delete[] inputs[i]->inputs;
 		inputs[i]->inputs = newInputs;
@@ -41,7 +42,7 @@ Component::Component(Board* board, Link** inputs, Link** outputs, int inputCount
 
 	for (int i = 0; i < outputCount; i++) {
 		Output** newOutputs = new Output*[outputs[i]->outputCount + 1];
-		memcpy(newOutputs, outputs[i]->outputs, outputs[i]->outputCount * sizeof(Output*));
+		std::memcpy(newOutputs, outputs[i]->outputs, outputs[i]->outputCount * sizeof(Output*));
 		newOutputs[outputs[i]->outputCount] = this->outputs[i];
 		delete[] outputs[i]->outputs;
 		outputs[i]->outputs = newOutputs;
