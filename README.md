@@ -25,11 +25,11 @@ If you are using TypeScript, import the module with: ```import {BoardObject, log
 | Function  | Decription |
 | --- | --- |
 | ```logicsim.newBoard("*unique identifier for your board*", *object with the contents of the board, see below for an example*);```  | Creates a new Board |
-| ```logicsim.startBoard("*identifier*" [, *amount of ticks the simulation will run, leave out for endless simulation*]);``` | Start your Board |
-| ```logicsim.stopBoard("*identifier*");``` | Stop your Board, if simulation is running |
-| ```logicsim.getBoardStatus("*identifier*");``` | Get the current Status of the Board, like passed ticks, current execution state or current simulation speed |
-| ```logicsim.getBoard("*identifier*");``` | Get the components and their current state of the board |
-| ```logicsim.triggerInput("*identifier*", *index of component to trigger*, *index of input on component*, *input event (0 = down, 1 = up)*)``` | Trigger an input element on the board |
+| ```logicsim.startBoard("*identifier*" [, *amount of ticks the simulation will run, leave out for endless simulation*]);``` | Starts a Board |
+| ```logicsim.stopBoard("*identifier*");``` | Stops a Board, if simulation is running |
+| ```logicsim.getBoardStatus("*identifier*");``` | Gets the current Status of a Board, like passed ticks, current execution state or current simulation speed |
+| ```logicsim.getBoard("*identifier*");``` | Gets the components and their current state of a board |
+| ```logicsim.triggerInput("*identifier*", *index of component to trigger*, *index of input on component*, *input event (0 = down, 1 = up)*)``` | Triggers an input element on a board |
 ### Sample Board Object:
 ```
 {
