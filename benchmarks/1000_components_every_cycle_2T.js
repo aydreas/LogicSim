@@ -1,4 +1,4 @@
-const logicsim = require('../index');
+const logicsim = require('../index').logicsim;
 
 var components = [];
 
