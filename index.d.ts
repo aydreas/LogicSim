@@ -1,5 +1,4 @@
 declare module logicsim {
-
     function newBoard(id: string, boardObject: BoardObject): void;
     function startBoard(id: string, ticksToRun?: number): void;
     function stopBoard(id: string): void;
@@ -31,7 +30,6 @@ declare type BoardState = {
     components: boolean[][];
     links: boolean[];
 }
-
 
 declare type Components = 'SWITCH' | 'XOR' | 'AND' | 'OR' | 'NOT' | 'BUTTON' | 'DELAY' | 'CLK';
 

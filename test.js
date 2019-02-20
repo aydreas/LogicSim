@@ -1,5 +1,5 @@
 const fs = require('fs');
-const logicsim = require('./index');
+const logicsim = require('./index').logicsim;
 
 var args = process.argv;
 
