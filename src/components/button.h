@@ -10,8 +10,8 @@ class BUTTON :
 	public UserInputComponent
 {
 public:
-	BUTTON(Board* board, Input** inputs, Output** outputs) : UserInputComponent(board, inputs, outputs, getInputCount(), getOutputCount()) { }
-	BUTTON(Board* board, Link** inputs, Link** outputs) : UserInputComponent(board, inputs, outputs, getInputCount(), getOutputCount()) { }
+	BUTTON(Board* board, Input** inputs, Output** outputs) : UserInputComponent(board, inputs, outputs, 1, 1) { }
+	BUTTON(Board* board, Link** inputs, Link** outputs) : UserInputComponent(board, inputs, outputs, 0, 1) { }
 
 	int getInputCount() {
 		return 0;

@@ -4,12 +4,12 @@
 #include "input.h"
 #include "link.h"
 
-class AND :
+class pre_calculated :
 	public Component
 {
 public:
-	AND(Board* board, Input** inputs, Output** outputs, int inputCount) : Component(board, inputs, outputs, inputCount, 1) { }
-	AND(Board* board, Link** inputs, Link** outputs, int inputCount) : Component(board, inputs, outputs, inputCount, 1) { }
+	pre_calculated(Board* board, Input** inputs, Output** outputs, int inputCount) : Component(board, inputs, outputs, inputCount, 1) { }
+	pre_calculated(Board* board, Link** inputs, Link** outputs, int inputCount) : Component(board, inputs, outputs, inputCount, 1) { }
 
 	unsigned int getMinInputCount() { return 1; }
 	unsigned int getMaxInputCount() { return UINT_MAX; }

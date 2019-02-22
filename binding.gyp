@@ -29,6 +29,7 @@
 		"src/components/delay.h",
 		"src/components/not.h",
 		"src/components/or.h",
+		"src/components/pre_calculated.h",
 		"src/components/switch.h",
 		"src/components/xor.h"
 		
