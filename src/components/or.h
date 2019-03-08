@@ -8,19 +8,22 @@ class OR :
 	public Component
 {
 public:
-	OR(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) { }
-	OR(Board* board, Link** inputs, Link** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) { }
+	OR(Board* board, Input** inputs, Output** outputs, std::size_t inputCount) : Component(board, inputs, outputs, inputCount, 1) { }
+	OR(Board* board, Link** inputs, Link** outputs, std::size_t inputCount) : Component(board, inputs, outputs, inputCount, 1) { }
 
-	int getInputCount() {
-		return 2;
-	}
-
-	int getOutputCount() {
-		return 1;
-	}
+	std::size_t getMinInputCount() { return 1; }
+	std::size_t getMaxInputCount() { return SIZE_MAX; }
+	std::size_t getMinOutputCount() { return 1; }
+	std::size_t getMaxOutputCount() { return 1; }
 
 	void compute() {
-		outputs[0]->setPowered(inputs[0]->getPowered() || inputs[1]->getPowered());
+		for (std::size_t i = 0; i < inputCount; i++) {
+			if (inputs[i]->getPowered()) {
+				outputs[0]->setPowered(true);
+				return;
+			}
+			outputs[0]->setPowered(false);
+		}
 	}
 };
 

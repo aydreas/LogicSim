@@ -6,9 +6,9 @@ class UserInputComponent :
 {
 public:
 	enum InputEvent { Down, Up };
-	virtual void triggerUserInput(int index, InputEvent inputEvent) = 0;
-	virtual int getUserInputCount() = 0;
+	virtual void triggerUserInput(std::size_t index, InputEvent inputEvent) = 0;
+	virtual std::size_t getUserInputCount() = 0;
 protected:
-	UserInputComponent(Board* board, Link** inputs, Link** outputs, int inputCount, int outputCount) : Component(board, inputs, outputs, inputCount, outputCount) { }
-	UserInputComponent(Board* board, Input** inputs, Output** outputs, int inputCount, int outputCount) : Component(board, inputs, outputs, inputCount, outputCount) { }
+	UserInputComponent(Board* board, Link** inputs, Link** outputs, std::size_t inputCount, std::size_t outputCount) : Component(board, inputs, outputs, inputCount, outputCount) { }
+	UserInputComponent(Board* board, Input** inputs, Output** outputs, std::size_t inputCount, std::size_t outputCount) : Component(board, inputs, outputs, inputCount, outputCount) { }
 };

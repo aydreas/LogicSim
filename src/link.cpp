@@ -12,7 +12,7 @@ Link::Link(Board* board) :
 {
 }
 
-Link::Link(Board* board, Input** inputs, Output** outputs, int inputCount, int outputCount) :
+Link::Link(Board* board, Input** inputs, Output** outputs, std::size_t inputCount, std::size_t outputCount) :
 	board(board),
 	inputs(inputs),
 	outputs(outputs),

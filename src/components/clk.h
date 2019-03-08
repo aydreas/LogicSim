@@ -10,40 +10,37 @@ class CLK :
 	public Component
 {
 public:
-	int speed = 1;
+	unsigned long speed = 1;
 
-	CLK(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) {
+	CLK(Board* board, Input** inputs, Output** outputs) : Component(board, inputs, outputs, 1, 1) {
 		outputChange();
 	}
 
-	CLK(Board* board, Input** inputs, Output** outputs, int speed) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) {
+	CLK(Board* board, Input** inputs, Output** outputs, unsigned long speed) : Component(board, inputs, outputs, 1, 1) {
 		this->speed = speed;
 		outputChange();
 	}
 
-	CLK(Board* board, Link** inputs, Link** outputs) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) {
+	CLK(Board* board, Link** inputs, Link** outputs) : Component(board, inputs, outputs, 1, 1) {
 		outputChange();
 	}
 
-	CLK(Board* board, Link** inputs, Link** outputs, int speed) : Component(board, inputs, outputs, getInputCount(), getOutputCount()) {
+	CLK(Board* board, Link** inputs, Link** outputs, unsigned long speed) : Component(board, inputs, outputs, 1, 1) {
 		this->speed = speed;
 		outputChange();
 	}
 
-	int getInputCount() {
-		return 1;
-	}
-
-	int getOutputCount() {
-		return 1;
-	}
+	std::size_t getMinInputCount() { return 1; }
+	std::size_t getMaxInputCount() { return 1; }
+	std::size_t getMinOutputCount() { return 1; }
+	std::size_t getMaxOutputCount() { return 1; }
 
 	void compute() {
 		outputChange();
 	}
 private:
 	bool subscribed = false;
-	int tickCount = 0;
+	unsigned long tickCount = 0;
 	Events::EventHandler<>* tickEvent = new Events::EventHandler<>([this](Events::Emitter* e, Events::EventArgs& a) {
 		tickCount++;
 

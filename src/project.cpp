@@ -77,7 +77,7 @@ void newBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 				componentOutputs[j] = links[v8ComponentOutputs->Get(j)->Int32Value(Nan::GetCurrentContext()).FromJust()];
 			
 			if (!strcmp(componentType, "AND"))
-				components[i] = new AND(board, componentInputs, componentOutputs);
+				components[i] = new AND(board, componentInputs, componentOutputs, 2);
 			else if (!strcmp(componentType, "BUTTON"))
 				components[i] = new BUTTON(board, componentInputs, componentOutputs);
 			else if (!strcmp(componentType, "CLK"))
@@ -87,11 +87,11 @@ void newBoard(const Nan::FunctionCallbackInfo<v8::Value>& args) {
 			else if (!strcmp(componentType, "NOT"))
 				components[i] = new NOT(board, componentInputs, componentOutputs);
 			else if (!strcmp(componentType, "OR"))
-				components[i] = new OR(board, componentInputs, componentOutputs);
+				components[i] = new OR(board, componentInputs, componentOutputs, 2);
 			else if (!strcmp(componentType, "SWITCH"))
 				components[i] = new SWITCH(board, componentInputs, componentOutputs);
 			else if (!strcmp(componentType, "XOR"))
-				components[i] = new XOR(board, componentInputs, componentOutputs);
+				components[i] = new XOR(board, componentInputs, componentOutputs, 2);
 			else {
 				Nan::ThrowTypeError((std::string("Error: Component '") + std::string(componentType) + std::string("' (") + std::to_string(i) + std::string(") is of no valid type!")).c_str());
 				return;

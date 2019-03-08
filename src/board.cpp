@@ -88,7 +88,7 @@ void Board::init(Component** components, Link** links, int componentCount, int l
 	}, 2);
 }
 
-unsigned int Board::getNextComponentIndex()
+std::size_t Board::getNextComponentIndex()
 {
 	return componentIndex++;
 }

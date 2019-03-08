@@ -12,12 +12,14 @@ public:
 	SWITCH(Board* board, Input** inputs, Output** outputs) : UserInputComponent(board, inputs, outputs, 0, 1) { }
 	SWITCH(Board* board, Link** inputs, Link** outputs) : UserInputComponent(board, inputs, outputs, 0, 1) { }
 
-	unsigned int getMinInputCount() { return 0; }
-	unsigned int getMaxInputCount() { return 0; }
-	unsigned int getMinOutputCount() { return 1; }
-	unsigned int getMaxOutputCount() { return 1; }
+	std::size_t getMinInputCount() { return 0; }
+	std::size_t getMaxInputCount() { return 0; }
+	std::size_t getMinOutputCount() { return 1; }
+	std::size_t getMaxOutputCount() { return 1; }
 
-	void triggerUserInput(int i, InputEvent inputEvent) {
+	std::size_t getUserInputCount() { return 1; }
+
+	void triggerUserInput(std::size_t i, InputEvent inputEvent) {
 		if(inputEvent == InputEvent::Down)
 			outputs[0]->setPowered(!outputs[0]->getPowered());
 	}
